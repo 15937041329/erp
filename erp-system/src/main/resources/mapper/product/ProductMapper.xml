@@ -1,0 +1,333 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zsy.product.mapper.ProductMapper">
+    
+    <resultMap type="Product" id="ProductResult">
+        <result property="id"    column="id"    />
+        <result property="externalProductId"    column="external_product_id"    />
+        <result property="externalProductIdType"    column="external_product_id_type"    />
+        <result property="itemSku"    column="item_sku"    />
+        <result property="itemName"    column="item_name"    />
+        <result property="brandName"    column="brand_name"    />
+        <result property="manufacturer"    column="manufacturer"    />
+        <result property="partNumber"    column="part_number"    />
+        <result property="productDescription"    column="product_description"    />
+        <result property="feedProductType"    column="feed_product_type"    />
+        <result property="currency"    column="currency"    />
+        <result property="websiteShippingWeight"    column="website_shipping_weight"    />
+        <result property="websiteShippingWeightUnitOfMeasure"    column="website_shipping_weight_unit_of_measure"    />
+        <result property="itemWeight"    column="item_weight"    />
+        <result property="itemWeightUnitOfMeasure"    column="item_weight_unit_of_measure"    />
+        <result property="bulletPoint1"    column="bullet_point1"    />
+        <result property="bulletPoint2"    column="bullet_point2"    />
+        <result property="bulletPoint3"    column="bullet_point3"    />
+        <result property="bulletPoint4"    column="bullet_point4"    />
+        <result property="bulletPoint5"    column="bullet_point5"    />
+        <result property="genericKeywords1"    column="generic_keywords1"    />
+        <result property="genericKeywords2"    column="generic_keywords2"    />
+        <result property="genericKeywords3"    column="generic_keywords3"    />
+        <result property="genericKeywords4"    column="generic_keywords4"    />
+        <result property="genericKeywords5"    column="generic_keywords5"    />
+        <result property="recommendedBrowseNodes1"    column="recommended_browse_nodes1"    />
+        <result property="recommendedBrowseNodes2"    column="recommended_browse_nodes2"    />
+        <result property="mainImageUrl"    column="main_image_url"    />
+        <result property="swatchImageUrl"    column="swatch_image_url"    />
+        <result property="otherImageUrl1"    column="other_image_url1"    />
+        <result property="otherImageUrl2"    column="other_image_url2"    />
+        <result property="otherImageUrl3"    column="other_image_url3"    />
+        <result property="otherImageUrl4"    column="other_image_url4"    />
+        <result property="otherImageUrl5"    column="other_image_url5"    />
+        <result property="otherImageUrl6"    column="other_image_url6"    />
+        <result property="otherImageUrl7"    column="other_image_url7"    />
+        <result property="otherImageUrl8"    column="other_image_url8"    />
+        <result property="standardPrice"    column="standard_price"    />
+        <result property="sellPrice"    column="sell_price"    />
+        <result property="quantity"    column="quantity"    />
+        <result property="updateDelete"    column="update_delete"    />
+        <result property="conditionType"    column="condition_type"    />
+        <result property="conditionNote"    column="condition_note"    />
+        <result property="parentId"    column="parent_id"    />
+        <result property="parentChild"    column="parent_child"    />
+        <result property="parentSku"    column="parent_sku"    />
+        <result property="relationshipType"    column="relationship_type"    />
+        <result property="variationTheme"    column="variation_theme"    />
+        <result property="colorName"    column="color_name"    />
+        <result property="colorMap"    column="color_map"    />
+        <result property="sizeName"    column="size_name"    />
+        <result property="sizeMap"    column="size_map"    />
+        <result property="createBy"    column="create_by"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="updateBy"    column="update_by"    />
+        <result property="updateTime"    column="update_time"    />
+        <result property="remark"    column="remark"    />
+    </resultMap>
+
+    <sql id="selectProductVo">
+        select id,external_product_id, external_product_id_type, item_sku, item_name, brand_name, manufacturer, part_number, product_description, feed_product_type, currency, website_shipping_weight, website_shipping_weight_unit_of_measure, item_weight, item_weight_unit_of_measure, bullet_point1, bullet_point2, bullet_point3, bullet_point4, bullet_point5, generic_keywords1, generic_keywords2, generic_keywords3, generic_keywords4, generic_keywords5, recommended_browse_nodes1, recommended_browse_nodes2, main_image_url, swatch_image_url, other_image_url1, other_image_url2, other_image_url3, other_image_url4, other_image_url5, other_image_url6, other_image_url7, other_image_url8, standard_price, sell_price, quantity, update_delete, condition_type, condition_note, parent_id, parent_child, parent_sku, relationship_type, variation_theme, color_name, color_map, size_name, size_map, create_by, create_time, update_by, update_time, remark from zsy_product
+    </sql>
+
+    <select id="selectProductList" parameterType="Product" resultMap="ProductResult">
+        <include refid="selectProductVo"/>
+        <where>  
+            <if test="externalProductIdType != null  and externalProductIdType != ''"> and external_product_id_type = #{externalProductIdType}</if>
+            <if test="itemSku != null  and itemSku != ''"> and item_sku like concat('%', #{itemSku}, '%')</if>
+            <if test="itemName != null  and itemName != ''"> and item_name like concat('%', #{itemName}, '%')</if>
+            <if test="brandName != null  and brandName != ''"> and brand_name like concat('%', #{brandName}, '%')</if>
+            <if test="manufacturer != null  and manufacturer != ''"> and manufacturer = #{manufacturer}</if>
+            <if test="partNumber != null  and partNumber != ''"> and part_number = #{partNumber}</if>
+            <if test="productDescription != null  and productDescription != ''"> and product_description = #{productDescription}</if>
+            <if test="feedProductType != null  and feedProductType != ''"> and feed_product_type = #{feedProductType}</if>
+            <if test="currency != null  and currency != ''"> and currency = #{currency}</if>
+            <if test="websiteShippingWeight != null  and websiteShippingWeight != ''"> and website_shipping_weight = #{websiteShippingWeight}</if>
+            <if test="websiteShippingWeightUnitOfMeasure != null  and websiteShippingWeightUnitOfMeasure != ''"> and website_shipping_weight_unit_of_measure = #{websiteShippingWeightUnitOfMeasure}</if>
+            <if test="itemWeight != null  and itemWeight != ''"> and item_weight = #{itemWeight}</if>
+            <if test="itemWeightUnitOfMeasure != null  and itemWeightUnitOfMeasure != ''"> and item_weight_unit_of_measure = #{itemWeightUnitOfMeasure}</if>
+            <if test="bulletPoint1 != null  and bulletPoint1 != ''"> and bullet_point1 = #{bulletPoint1}</if>
+            <if test="bulletPoint2 != null  and bulletPoint2 != ''"> and bullet_point2 = #{bulletPoint2}</if>
+            <if test="bulletPoint3 != null  and bulletPoint3 != ''"> and bullet_point3 = #{bulletPoint3}</if>
+            <if test="bulletPoint4 != null  and bulletPoint4 != ''"> and bullet_point4 = #{bulletPoint4}</if>
+            <if test="bulletPoint5 != null  and bulletPoint5 != ''"> and bullet_point5 = #{bulletPoint5}</if>
+            <if test="genericKeywords1 != null  and genericKeywords1 != ''"> and generic_keywords1 = #{genericKeywords1}</if>
+            <if test="genericKeywords2 != null  and genericKeywords2 != ''"> and generic_keywords2 = #{genericKeywords2}</if>
+            <if test="genericKeywords3 != null  and genericKeywords3 != ''"> and generic_keywords3 = #{genericKeywords3}</if>
+            <if test="genericKeywords4 != null  and genericKeywords4 != ''"> and generic_keywords4 = #{genericKeywords4}</if>
+            <if test="genericKeywords5 != null  and genericKeywords5 != ''"> and generic_keywords5 = #{genericKeywords5}</if>
+            <if test="recommendedBrowseNodes1 != null  and recommendedBrowseNodes1 != ''"> and recommended_browse_nodes1 = #{recommendedBrowseNodes1}</if>
+            <if test="recommendedBrowseNodes2 != null  and recommendedBrowseNodes2 != ''"> and recommended_browse_nodes2 = #{recommendedBrowseNodes2}</if>
+            <if test="mainImageUrl != null  and mainImageUrl != ''"> and main_image_url = #{mainImageUrl}</if>
+            <if test="swatchImageUrl != null  and swatchImageUrl != ''"> and swatch_image_url = #{swatchImageUrl}</if>
+            <if test="otherImageUrl1 != null  and otherImageUrl1 != ''"> and other_image_url1 = #{otherImageUrl1}</if>
+            <if test="otherImageUrl2 != null  and otherImageUrl2 != ''"> and other_image_url2 = #{otherImageUrl2}</if>
+            <if test="otherImageUrl3 != null  and otherImageUrl3 != ''"> and other_image_url3 = #{otherImageUrl3}</if>
+            <if test="otherImageUrl4 != null  and otherImageUrl4 != ''"> and other_image_url4 = #{otherImageUrl4}</if>
+            <if test="otherImageUrl5 != null  and otherImageUrl5 != ''"> and other_image_url5 = #{otherImageUrl5}</if>
+            <if test="otherImageUrl6 != null  and otherImageUrl6 != ''"> and other_image_url6 = #{otherImageUrl6}</if>
+            <if test="otherImageUrl7 != null  and otherImageUrl7 != ''"> and other_image_url7 = #{otherImageUrl7}</if>
+            <if test="otherImageUrl8 != null  and otherImageUrl8 != ''"> and other_image_url8 = #{otherImageUrl8}</if>
+            <if test="standardPrice != null "> and standard_price = #{standardPrice}</if>
+            <if test="sellPrice != null "> and sell_price = #{sellPrice}</if>
+            <if test="quantity != null "> and quantity = #{quantity}</if>
+            <if test="updateDelete != null  and updateDelete != ''"> and update_delete = #{updateDelete}</if>
+            <if test="conditionType != null  and conditionType != ''"> and condition_type = #{conditionType}</if>
+            <if test="conditionNote != null  and conditionNote != ''"> and condition_note = #{conditionNote}</if>
+            <if test="parentId != null "> and parent_id = #{parentId}</if>
+            <if test="parentChild != null  and parentChild != ''"> and parent_child = #{parentChild}</if>
+            <if test="parentSku != null  and parentSku != ''"> and parent_sku = #{parentSku}</if>
+            <if test="relationshipType != null  and relationshipType != ''"> and relationship_type = #{relationshipType}</if>
+            <if test="variationTheme != null  and variationTheme != ''"> and variation_theme = #{variationTheme}</if>
+            <if test="colorName != null  and colorName != ''"> and color_name like concat('%', #{colorName}, '%')</if>
+            <if test="colorMap != null  and colorMap != ''"> and color_map = #{colorMap}</if>
+            <if test="sizeName != null  and sizeName != ''"> and size_name like concat('%', #{sizeName}, '%')</if>
+            <if test="createBy != null  and createBy != ''"> and create_by like concat('%', #{createBy}, '%')</if>
+            <if test="sizeMap != null  and sizeMap != ''"> and size_map = #{sizeMap}</if>
+            <if test="params.beginTime != null and params.beginTime != ''"><!-- 开始时间检索 -->
+                AND date_format(create_time,'%y%m%d') &gt;= date_format(#{params.beginTime},'%y%m%d')
+            </if>
+            <if test="params.endTime != null and params.endTime != ''"><!-- 结束时间检索 -->
+                AND date_format(create_time,'%y%m%d') &lt;= date_format(#{params.endTime},'%y%m%d')
+            </if>
+        </where>
+    </select>
+    
+    <select id="selectProductById" parameterType="Long" resultMap="ProductResult">
+        <include refid="selectProductVo"/>
+        where id = #{id}
+    </select>
+        
+    <insert id="insertProduct" parameterType="Product" useGeneratedKeys="true" keyProperty="id">
+        insert into zsy_product
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="externalProductId != null  and externalProductId != ''">external_product_id,</if>
+            <if test="externalProductIdType != null  and externalProductIdType != ''">external_product_id_type,</if>
+            <if test="itemSku != null  and itemSku != ''">item_sku,</if>
+            <if test="itemName != null  and itemName != ''">item_name,</if>
+            <if test="brandName != null  and brandName != ''">brand_name,</if>
+            <if test="manufacturer != null  and manufacturer != ''">manufacturer,</if>
+            <if test="partNumber != null  and partNumber != ''">part_number,</if>
+            <if test="productDescription != null  and productDescription != ''">product_description,</if>
+            <if test="feedProductType != null  and feedProductType != ''">feed_product_type,</if>
+            <if test="currency != null  and currency != ''">currency,</if>
+            <if test="websiteShippingWeight != null  and websiteShippingWeight != ''">website_shipping_weight,</if>
+            <if test="websiteShippingWeightUnitOfMeasure != null  and websiteShippingWeightUnitOfMeasure != ''">website_shipping_weight_unit_of_measure,</if>
+            <if test="itemWeight != null  and itemWeight != ''">item_weight,</if>
+            <if test="itemWeightUnitOfMeasure != null  and itemWeightUnitOfMeasure != ''">item_weight_unit_of_measure,</if>
+            <if test="bulletPoint1 != null  and bulletPoint1 != ''">bullet_point1,</if>
+            <if test="bulletPoint2 != null  and bulletPoint2 != ''">bullet_point2,</if>
+            <if test="bulletPoint3 != null  and bulletPoint3 != ''">bullet_point3,</if>
+            <if test="bulletPoint4 != null  and bulletPoint4 != ''">bullet_point4,</if>
+            <if test="bulletPoint5 != null  and bulletPoint5 != ''">bullet_point5,</if>
+            <if test="genericKeywords1 != null  and genericKeywords1 != ''">generic_keywords1,</if>
+            <if test="genericKeywords2 != null  and genericKeywords2 != ''">generic_keywords2,</if>
+            <if test="genericKeywords3 != null  and genericKeywords3 != ''">generic_keywords3,</if>
+            <if test="genericKeywords4 != null  and genericKeywords4 != ''">generic_keywords4,</if>
+            <if test="genericKeywords5 != null  and genericKeywords5 != ''">generic_keywords5,</if>
+            <if test="recommendedBrowseNodes1 != null  and recommendedBrowseNodes1 != ''">recommended_browse_nodes1,</if>
+            <if test="recommendedBrowseNodes2 != null  and recommendedBrowseNodes2 != ''">recommended_browse_nodes2,</if>
+            <if test="mainImageUrl != null  and mainImageUrl != ''">main_image_url,</if>
+            <if test="swatchImageUrl != null  and swatchImageUrl != ''">swatch_image_url,</if>
+            <if test="otherImageUrl1 != null  and otherImageUrl1 != ''">other_image_url1,</if>
+            <if test="otherImageUrl2 != null  and otherImageUrl2 != ''">other_image_url2,</if>
+            <if test="otherImageUrl3 != null  and otherImageUrl3 != ''">other_image_url3,</if>
+            <if test="otherImageUrl4 != null  and otherImageUrl4 != ''">other_image_url4,</if>
+            <if test="otherImageUrl5 != null  and otherImageUrl5 != ''">other_image_url5,</if>
+            <if test="otherImageUrl6 != null  and otherImageUrl6 != ''">other_image_url6,</if>
+            <if test="otherImageUrl7 != null  and otherImageUrl7 != ''">other_image_url7,</if>
+            <if test="otherImageUrl8 != null  and otherImageUrl8 != ''">other_image_url8,</if>
+            <if test="standardPrice != null ">standard_price,</if>
+            <if test="sellPrice != null ">sell_price,</if>
+            <if test="quantity != null ">quantity,</if>
+            <if test="updateDelete != null  and updateDelete != ''">update_delete,</if>
+            <if test="conditionType != null  and conditionType != ''">condition_type,</if>
+            <if test="conditionNote != null  and conditionNote != ''">condition_note,</if>
+            <if test="parentId != null ">parent_id,</if>
+            <if test="parentChild != null  and parentChild != ''">parent_child,</if>
+            <if test="parentSku != null  and parentSku != ''">parent_sku,</if>
+            <if test="relationshipType != null  and relationshipType != ''">relationship_type,</if>
+            <if test="variationTheme != null  and variationTheme != ''">variation_theme,</if>
+            <if test="colorName != null  and colorName != ''">color_name,</if>
+            <if test="colorMap != null  and colorMap != ''">color_map,</if>
+            <if test="sizeName != null  and sizeName != ''">size_name,</if>
+            <if test="sizeMap != null  and sizeMap != ''">size_map,</if>
+            <if test="createBy != null  and createBy != ''">create_by,</if>
+            <if test="createTime != null ">create_time,</if>
+            <if test="updateBy != null  and updateBy != ''">update_by,</if>
+            <if test="updateTime != null ">update_time,</if>
+            <if test="remark != null  and remark != ''">remark,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="externalProductId != null  and externalProductId != ''">#{externalProductId},</if>
+            <if test="externalProductIdType != null  and externalProductIdType != ''">#{externalProductIdType},</if>
+            <if test="itemSku != null  and itemSku != ''">#{itemSku},</if>
+            <if test="itemName != null  and itemName != ''">#{itemName},</if>
+            <if test="brandName != null  and brandName != ''">#{brandName},</if>
+            <if test="manufacturer != null  and manufacturer != ''">#{manufacturer},</if>
+            <if test="partNumber != null  and partNumber != ''">#{partNumber},</if>
+            <if test="productDescription != null  and productDescription != ''">#{productDescription},</if>
+            <if test="feedProductType != null  and feedProductType != ''">#{feedProductType},</if>
+            <if test="currency != null  and currency != ''">#{currency},</if>
+            <if test="websiteShippingWeight != null  and websiteShippingWeight != ''">#{websiteShippingWeight},</if>
+            <if test="websiteShippingWeightUnitOfMeasure != null  and websiteShippingWeightUnitOfMeasure != ''">#{websiteShippingWeightUnitOfMeasure},</if>
+            <if test="itemWeight != null  and itemWeight != ''">#{itemWeight},</if>
+            <if test="itemWeightUnitOfMeasure != null  and itemWeightUnitOfMeasure != ''">#{itemWeightUnitOfMeasure},</if>
+            <if test="bulletPoint1 != null  and bulletPoint1 != ''">#{bulletPoint1},</if>
+            <if test="bulletPoint2 != null  and bulletPoint2 != ''">#{bulletPoint2},</if>
+            <if test="bulletPoint3 != null  and bulletPoint3 != ''">#{bulletPoint3},</if>
+            <if test="bulletPoint4 != null  and bulletPoint4 != ''">#{bulletPoint4},</if>
+            <if test="bulletPoint5 != null  and bulletPoint5 != ''">#{bulletPoint5},</if>
+            <if test="genericKeywords1 != null  and genericKeywords1 != ''">#{genericKeywords1},</if>
+            <if test="genericKeywords2 != null  and genericKeywords2 != ''">#{genericKeywords2},</if>
+            <if test="genericKeywords3 != null  and genericKeywords3 != ''">#{genericKeywords3},</if>
+            <if test="genericKeywords4 != null  and genericKeywords4 != ''">#{genericKeywords4},</if>
+            <if test="genericKeywords5 != null  and genericKeywords5 != ''">#{genericKeywords5},</if>
+            <if test="recommendedBrowseNodes1 != null  and recommendedBrowseNodes1 != ''">#{recommendedBrowseNodes1},</if>
+            <if test="recommendedBrowseNodes2 != null  and recommendedBrowseNodes2 != ''">#{recommendedBrowseNodes2},</if>
+            <if test="mainImageUrl != null  and mainImageUrl != ''">#{mainImageUrl},</if>
+            <if test="swatchImageUrl != null  and swatchImageUrl != ''">#{swatchImageUrl},</if>
+            <if test="otherImageUrl1 != null  and otherImageUrl1 != ''">#{otherImageUrl1},</if>
+            <if test="otherImageUrl2 != null  and otherImageUrl2 != ''">#{otherImageUrl2},</if>
+            <if test="otherImageUrl3 != null  and otherImageUrl3 != ''">#{otherImageUrl3},</if>
+            <if test="otherImageUrl4 != null  and otherImageUrl4 != ''">#{otherImageUrl4},</if>
+            <if test="otherImageUrl5 != null  and otherImageUrl5 != ''">#{otherImageUrl5},</if>
+            <if test="otherImageUrl6 != null  and otherImageUrl6 != ''">#{otherImageUrl6},</if>
+            <if test="otherImageUrl7 != null  and otherImageUrl7 != ''">#{otherImageUrl7},</if>
+            <if test="otherImageUrl8 != null  and otherImageUrl8 != ''">#{otherImageUrl8},</if>
+            <if test="standardPrice != null ">#{standardPrice},</if>
+            <if test="sellPrice != null ">#{sellPrice},</if>
+            <if test="quantity != null ">#{quantity},</if>
+            <if test="updateDelete != null  and updateDelete != ''">#{updateDelete},</if>
+            <if test="conditionType != null  and conditionType != ''">#{conditionType},</if>
+            <if test="conditionNote != null  and conditionNote != ''">#{conditionNote},</if>
+            <if test="parentId != null ">#{parentId},</if>
+            <if test="parentChild != null  and parentChild != ''">#{parentChild},</if>
+            <if test="parentSku != null  and parentSku != ''">#{parentSku},</if>
+            <if test="relationshipType != null  and relationshipType != ''">#{relationshipType},</if>
+            <if test="variationTheme != null  and variationTheme != ''">#{variationTheme},</if>
+            <if test="colorName != null  and colorName != ''">#{colorName},</if>
+            <if test="colorMap != null  and colorMap != ''">#{colorMap},</if>
+            <if test="sizeName != null  and sizeName != ''">#{sizeName},</if>
+            <if test="sizeMap != null  and sizeMap != ''">#{sizeMap},</if>
+            <if test="createBy != null  and createBy != ''">#{createBy},</if>
+            <if test="createTime != null ">#{createTime},</if>
+            <if test="updateBy != null  and updateBy != ''">#{updateBy},</if>
+            <if test="updateTime != null ">#{updateTime},</if>
+            <if test="remark != null  and remark != ''">#{remark},</if>
+         </trim>
+    </insert>
+
+    <update id="updateProduct" parameterType="Product">
+        update zsy_product
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="externalProductId != null  and externalProductId != ''">external_product_id = #{externalProductId},</if>
+            <if test="externalProductIdType != null  and externalProductIdType != ''">external_product_id_type = #{externalProductIdType},</if>
+            <if test="itemSku != null  and itemSku != ''">item_sku = #{itemSku},</if>
+            <if test="itemName != null  and itemName != ''">item_name = #{itemName},</if>
+            <if test="brandName != null  and brandName != ''">brand_name = #{brandName},</if>
+            <if test="manufacturer != null  and manufacturer != ''">manufacturer = #{manufacturer},</if>
+            <if test="partNumber != null  and partNumber != ''">part_number = #{partNumber},</if>
+            <if test="productDescription != null  and productDescription != ''">product_description = #{productDescription},</if>
+            <if test="feedProductType != null  and feedProductType != ''">feed_product_type = #{feedProductType},</if>
+            <if test="currency != null  and currency != ''">currency = #{currency},</if>
+            <if test="websiteShippingWeight != null  and websiteShippingWeight != ''">website_shipping_weight = #{websiteShippingWeight},</if>
+            <if test="websiteShippingWeightUnitOfMeasure != null  and websiteShippingWeightUnitOfMeasure != ''">website_shipping_weight_unit_of_measure = #{websiteShippingWeightUnitOfMeasure},</if>
+            <if test="itemWeight != null  and itemWeight != ''">item_weight = #{itemWeight},</if>
+            <if test="itemWeightUnitOfMeasure != null  and itemWeightUnitOfMeasure != ''">item_weight_unit_of_measure = #{itemWeightUnitOfMeasure},</if>
+            <if test="bulletPoint1 != null  and bulletPoint1 != ''">bullet_point1 = #{bulletPoint1},</if>
+            <if test="bulletPoint2 != null  and bulletPoint2 != ''">bullet_point2 = #{bulletPoint2},</if>
+            <if test="bulletPoint3 != null  and bulletPoint3 != ''">bullet_point3 = #{bulletPoint3},</if>
+            <if test="bulletPoint4 != null  and bulletPoint4 != ''">bullet_point4 = #{bulletPoint4},</if>
+            <if test="bulletPoint5 != null  and bulletPoint5 != ''">bullet_point5 = #{bulletPoint5},</if>
+            <if test="genericKeywords1 != null  and genericKeywords1 != ''">generic_keywords1 = #{genericKeywords1},</if>
+            <if test="genericKeywords2 != null  and genericKeywords2 != ''">generic_keywords2 = #{genericKeywords2},</if>
+            <if test="genericKeywords3 != null  and genericKeywords3 != ''">generic_keywords3 = #{genericKeywords3},</if>
+            <if test="genericKeywords4 != null  and genericKeywords4 != ''">generic_keywords4 = #{genericKeywords4},</if>
+            <if test="genericKeywords5 != null  and genericKeywords5 != ''">generic_keywords5 = #{genericKeywords5},</if>
+            <if test="recommendedBrowseNodes1 != null  and recommendedBrowseNodes1 != ''">recommended_browse_nodes1 = #{recommendedBrowseNodes1},</if>
+            <if test="recommendedBrowseNodes2 != null  and recommendedBrowseNodes2 != ''">recommended_browse_nodes2 = #{recommendedBrowseNodes2},</if>
+            <if test="mainImageUrl != null  ">main_image_url = #{mainImageUrl},</if>
+            <if test="swatchImageUrl != null  ">swatch_image_url = #{swatchImageUrl},</if>
+            <if test="otherImageUrl1 != null  ">other_image_url1 = #{otherImageUrl1},</if>
+            <if test="otherImageUrl2 != null  ">other_image_url2 = #{otherImageUrl2},</if>
+            <if test="otherImageUrl3 != null  ">other_image_url3 = #{otherImageUrl3},</if>
+            <if test="otherImageUrl4 != null  ">other_image_url4 = #{otherImageUrl4},</if>
+            <if test="otherImageUrl5 != null  ">other_image_url5 = #{otherImageUrl5},</if>
+            <if test="otherImageUrl6 != null  ">other_image_url6 = #{otherImageUrl6},</if>
+            <if test="otherImageUrl7 != null  ">other_image_url7 = #{otherImageUrl7},</if>
+            <if test="otherImageUrl8 != null  ">other_image_url8 = #{otherImageUrl8},</if>
+            <if test="standardPrice != null ">standard_price = #{standardPrice},</if>
+            <if test="sellPrice != null ">sell_price = #{sellPrice},</if>
+            <if test="quantity != null ">quantity = #{quantity},</if>
+            <if test="updateDelete != null  and updateDelete != ''">update_delete = #{updateDelete},</if>
+            <if test="conditionType != null  and conditionType != ''">condition_type = #{conditionType},</if>
+            <if test="conditionNote != null  and conditionNote != ''">condition_note = #{conditionNote},</if>
+            <if test="parentId != null ">parent_id = #{parentId},</if>
+            <if test="parentChild != null  and parentChild != ''">parent_child = #{parentChild},</if>
+            <if test="parentSku != null  and parentSku != ''">parent_sku = #{parentSku},</if>
+            <if test="relationshipType != null  and relationshipType != ''">relationship_type = #{relationshipType},</if>
+            <if test="variationTheme != null  and variationTheme != ''">variation_theme = #{variationTheme},</if>
+            <if test="colorName != null  and colorName != ''">color_name = #{colorName},</if>
+            <if test="colorMap != null  and colorMap != ''">color_map = #{colorMap},</if>
+            <if test="sizeName != null  and sizeName != ''">size_name = #{sizeName},</if>
+            <if test="sizeMap != null  and sizeMap != ''">size_map = #{sizeMap},</if>
+            <if test="createBy != null  and createBy != ''">create_by = #{createBy},</if>
+            <if test="createTime != null ">create_time = #{createTime},</if>
+            <if test="updateBy != null  and updateBy != ''">update_by = #{updateBy},</if>
+            <if test="updateTime != null ">update_time = #{updateTime},</if>
+            <if test="remark != null  and remark != ''">remark = #{remark},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteProductById" parameterType="Long">
+        delete from zsy_product where id = #{id}
+    </delete>
+
+    <delete id="deleteProductByIds" parameterType="String">
+        delete from zsy_product where id in
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+    
+</mapper>

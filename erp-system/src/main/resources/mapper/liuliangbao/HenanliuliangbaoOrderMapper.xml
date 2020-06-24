@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zsy.liuliangbao.mapper.HenanliuliangbaoOrderMapper">
+    
+    <resultMap type="HenanliuliangbaoOrder" id="HenanliuliangbaoOrderResult">
+        <result property="id"    column="id"    />
+        <result property="svcnum"    column="svcNum"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="offerid"    column="offerId"    />
+        <result property="vdef1"    column="vdef1"    />
+        <result property="vdef2"    column="vdef2"    />
+        <result property="vdef3"    column="vdef3"    />
+    </resultMap>
+
+    <sql id="selectHenanliuliangbaoOrderVo">
+        select id, svcNum, create_time, offerId, vdef1, vdef2, vdef3 from henanliuliangbao_order
+    </sql>
+
+    <select id="selectHenanliuliangbaoOrderList" parameterType="HenanliuliangbaoOrder" resultMap="HenanliuliangbaoOrderResult">
+        <include refid="selectHenanliuliangbaoOrderVo"/>
+        <where>  
+            <if test="svcnum != null  and svcnum != ''"> and svcNum = #{svcnum}</if>
+            <if test="createTime != null "> and create_time = #{createTime}</if>
+            <if test="vdef2 != null  and vdef2 != ''"> and vdef2 = #{vdef2}</if>
+        </where>
+    </select>
+    
+    <select id="selectHenanliuliangbaoOrderById" parameterType="Long" resultMap="HenanliuliangbaoOrderResult">
+        <include refid="selectHenanliuliangbaoOrderVo"/>
+        where id = #{id}
+    </select>
+        
+    <insert id="insertHenanliuliangbaoOrder" parameterType="HenanliuliangbaoOrder" useGeneratedKeys="true" keyProperty="id">
+        insert into henanliuliangbao_order
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="svcnum != null  and svcnum != ''">svcNum,</if>
+            <if test="createTime != null ">create_time,</if>
+            <if test="offerid != null  and offerid != ''">offerId,</if>
+            <if test="vdef1 != null  and vdef1 != ''">vdef1,</if>
+            <if test="vdef2 != null  and vdef2 != ''">vdef2,</if>
+            <if test="vdef3 != null  and vdef3 != ''">vdef3,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="svcnum != null  and svcnum != ''">#{svcnum},</if>
+            <if test="createTime != null ">#{createTime},</if>
+            <if test="offerid != null  and offerid != ''">#{offerid},</if>
+            <if test="vdef1 != null  and vdef1 != ''">#{vdef1},</if>
+            <if test="vdef2 != null  and vdef2 != ''">#{vdef2},</if>
+            <if test="vdef3 != null  and vdef3 != ''">#{vdef3},</if>
+         </trim>
+    </insert>
+
+    <update id="updateHenanliuliangbaoOrder" parameterType="HenanliuliangbaoOrder">
+        update henanliuliangbao_order
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="svcnum != null  and svcnum != ''">svcNum = #{svcnum},</if>
+            <if test="createTime != null ">create_time = #{createTime},</if>
+            <if test="offerid != null  and offerid != ''">offerId = #{offerid},</if>
+            <if test="vdef1 != null  and vdef1 != ''">vdef1 = #{vdef1},</if>
+            <if test="vdef2 != null  and vdef2 != ''">vdef2 = #{vdef2},</if>
+            <if test="vdef3 != null  and vdef3 != ''">vdef3 = #{vdef3},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteHenanliuliangbaoOrderById" parameterType="Long">
+        delete from henanliuliangbao_order where id = #{id}
+    </delete>
+
+    <delete id="deleteHenanliuliangbaoOrderByIds" parameterType="String">
+        delete from henanliuliangbao_order where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+    
+</mapper>

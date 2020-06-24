@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zsy.henan.mapper.HenanOrderMapper">
+    
+    <resultMap type="HenanOrder" id="HenanOrderResult">
+        <result property="id"    column="id"    />
+        <result property="cardsvcnum"    column="cardSvcnum"    />
+        <result property="cardregion"    column="cardRegion"    />
+        <result property="usertel"    column="userTel"    />
+        <result property="province"    column="province"    />
+        <result property="city"    column="city"    />
+        <result property="county"    column="county"    />
+        <result property="town"    column="town"    />
+        <result property="address"    column="address"    />
+        <result property="outprodid"    column="outProdId"    />
+        <result property="ouprodprcid"    column="ouprodprcid"    />
+        <result property="payamount"    column="payAmount"    />
+        <result property="havecardtype"    column="havecardType"    />
+        <result property="outorderid"    column="outOrderid"    />
+        <result property="contactsname"    column="contactsname"    />
+        <result property="picnamerpath"    column="picnamerpath"    />
+        <result property="useridnum"    column="useridNum"    />
+        <result property="username"    column="userName"    />
+        <result property="busiseq"    column="busiSeq"    />
+        <result property="changeid"    column="changeid"    />
+        <result property="channgestate"    column="channgestate"    />
+        <result property="changetime"    column="changetime"    />
+        <result property="wlcompany"    column="wlCompany"    />
+        <result property="wlorderid"    column="wlOrderid"    />
+        <result property="busicode"    column="busiCode"    />
+        <result property="sourceid"    column="sourceId"    />
+        <result property="busiserial"    column="busiSerial"    />
+        <result property="format"    column="format"    />
+        <result property="sign"    column="sign"    />
+        <result property="cd"    column="cd"    />
+        <result property="vdef2"    column="vdef2"    />
+        <result property="vdef3"    column="vdef3"    />
+    </resultMap>
+
+    <sql id="selectHenanOrderVo">
+        select id, cardSvcnum, cardRegion, userTel, province, city, county, town, address, outProdId, ouprodprcid, payAmount, havecardType, outOrderid, contactsname, picnamerpath, useridNum, userName, busiSeq, changeid, channgestate, changetime, wlCompany, wlOrderid, busiCode, sourceId, busiSerial, format, sign, cd, vdef2, vdef3 from henan_order
+    </sql>
+
+    <select id="selectHenanOrderList" parameterType="HenanOrder" resultMap="HenanOrderResult">
+        <include refid="selectHenanOrderVo"/>
+        <where>  
+            <if test="cardsvcnum != null  and cardsvcnum != ''"> and cardSvcnum = #{cardsvcnum}</if>
+            <if test="usertel != null  and usertel != ''"> and userTel = #{usertel}</if>
+            <if test="city != null  and city != ''"> and city = #{city}</if>
+            <if test="contactsname != null  and contactsname != ''"> and contactsname like concat('%', #{contactsname}, '%')</if>
+            <if test="useridnum != null  and useridnum != ''"> and useridNum = #{useridnum}</if>
+            <if test="username != null  and username != ''"> and userName like concat('%', #{username}, '%')</if>
+            <if test="channgestate != null  and channgestate != ''"> and channgestate = #{channgestate}</if>
+            <if test="cd != null "> and cd = #{cd}</if>
+            <if test="vdef2 != null  and vdef2 != ''"> and vdef2 = #{vdef2}</if>
+        </where>
+    </select>
+    
+    <select id="selectHenanOrderById" parameterType="Long" resultMap="HenanOrderResult">
+        <include refid="selectHenanOrderVo"/>
+        where id = #{id}
+    </select>
+        
+    <insert id="insertHenanOrder" parameterType="HenanOrder" useGeneratedKeys="true" keyProperty="id">
+        insert into henan_order
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="cardsvcnum != null  and cardsvcnum != ''">cardSvcnum,</if>
+            <if test="cardregion != null  and cardregion != ''">cardRegion,</if>
+            <if test="usertel != null  and usertel != ''">userTel,</if>
+            <if test="province != null  and province != ''">province,</if>
+            <if test="city != null  and city != ''">city,</if>
+            <if test="county != null  and county != ''">county,</if>
+            <if test="town != null  and town != ''">town,</if>
+            <if test="address != null  and address != ''">address,</if>
+            <if test="outprodid != null  and outprodid != ''">outProdId,</if>
+            <if test="ouprodprcid != null  and ouprodprcid != ''">ouprodprcid,</if>
+            <if test="payamount != null ">payAmount,</if>
+            <if test="havecardtype != null  and havecardtype != ''">havecardType,</if>
+            <if test="outorderid != null  and outorderid != ''">outOrderid,</if>
+            <if test="contactsname != null  and contactsname != ''">contactsname,</if>
+            <if test="picnamerpath != null  and picnamerpath != ''">picnamerpath,</if>
+            <if test="useridnum != null  and useridnum != ''">useridNum,</if>
+            <if test="username != null  and username != ''">userName,</if>
+            <if test="busiseq != null  and busiseq != ''">busiSeq,</if>
+            <if test="changeid != null  and changeid != ''">changeid,</if>
+            <if test="channgestate != null  and channgestate != ''">channgestate,</if>
+            <if test="changetime != null ">changetime,</if>
+            <if test="wlcompany != null  and wlcompany != ''">wlCompany,</if>
+            <if test="wlorderid != null  and wlorderid != ''">wlOrderid,</if>
+            <if test="busicode != null  and busicode != ''">busiCode,</if>
+            <if test="sourceid != null  and sourceid != ''">sourceId,</if>
+            <if test="busiserial != null  and busiserial != ''">busiSerial,</if>
+            <if test="format != null  and format != ''">format,</if>
+            <if test="sign != null  and sign != ''">sign,</if>
+            <if test="cd != null ">cd,</if>
+            <if test="vdef2 != null  and vdef2 != ''">vdef2,</if>
+            <if test="vdef3 != null  and vdef3 != ''">vdef3,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="cardsvcnum != null  and cardsvcnum != ''">#{cardsvcnum},</if>
+            <if test="cardregion != null  and cardregion != ''">#{cardregion},</if>
+            <if test="usertel != null  and usertel != ''">#{usertel},</if>
+            <if test="province != null  and province != ''">#{province},</if>
+            <if test="city != null  and city != ''">#{city},</if>
+            <if test="county != null  and county != ''">#{county},</if>
+            <if test="town != null  and town != ''">#{town},</if>
+            <if test="address != null  and address != ''">#{address},</if>
+            <if test="outprodid != null  and outprodid != ''">#{outprodid},</if>
+            <if test="ouprodprcid != null  and ouprodprcid != ''">#{ouprodprcid},</if>
+            <if test="payamount != null ">#{payamount},</if>
+            <if test="havecardtype != null  and havecardtype != ''">#{havecardtype},</if>
+            <if test="outorderid != null  and outorderid != ''">#{outorderid},</if>
+            <if test="contactsname != null  and contactsname != ''">#{contactsname},</if>
+            <if test="picnamerpath != null  and picnamerpath != ''">#{picnamerpath},</if>
+            <if test="useridnum != null  and useridnum != ''">#{useridnum},</if>
+            <if test="username != null  and username != ''">#{username},</if>
+            <if test="busiseq != null  and busiseq != ''">#{busiseq},</if>
+            <if test="changeid != null  and changeid != ''">#{changeid},</if>
+            <if test="channgestate != null  and channgestate != ''">#{channgestate},</if>
+            <if test="changetime != null ">#{changetime},</if>
+            <if test="wlcompany != null  and wlcompany != ''">#{wlcompany},</if>
+            <if test="wlorderid != null  and wlorderid != ''">#{wlorderid},</if>
+            <if test="busicode != null  and busicode != ''">#{busicode},</if>
+            <if test="sourceid != null  and sourceid != ''">#{sourceid},</if>
+            <if test="busiserial != null  and busiserial != ''">#{busiserial},</if>
+            <if test="format != null  and format != ''">#{format},</if>
+            <if test="sign != null  and sign != ''">#{sign},</if>
+            <if test="cd != null ">#{cd},</if>
+            <if test="vdef2 != null  and vdef2 != ''">#{vdef2},</if>
+            <if test="vdef3 != null  and vdef3 != ''">#{vdef3},</if>
+         </trim>
+    </insert>
+
+    <update id="updateHenanOrder" parameterType="HenanOrder">
+        update henan_order
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="cardsvcnum != null  and cardsvcnum != ''">cardSvcnum = #{cardsvcnum},</if>
+            <if test="cardregion != null  and cardregion != ''">cardRegion = #{cardregion},</if>
+            <if test="usertel != null  and usertel != ''">userTel = #{usertel},</if>
+            <if test="province != null  and province != ''">province = #{province},</if>
+            <if test="city != null  and city != ''">city = #{city},</if>
+            <if test="county != null  and county != ''">county = #{county},</if>
+            <if test="town != null  and town != ''">town = #{town},</if>
+            <if test="address != null  and address != ''">address = #{address},</if>
+            <if test="outprodid != null  and outprodid != ''">outProdId = #{outprodid},</if>
+            <if test="ouprodprcid != null  and ouprodprcid != ''">ouprodprcid = #{ouprodprcid},</if>
+            <if test="payamount != null ">payAmount = #{payamount},</if>
+            <if test="havecardtype != null  and havecardtype != ''">havecardType = #{havecardtype},</if>
+            <if test="outorderid != null  and outorderid != ''">outOrderid = #{outorderid},</if>
+            <if test="contactsname != null  and contactsname != ''">contactsname = #{contactsname},</if>
+            <if test="picnamerpath != null  and picnamerpath != ''">picnamerpath = #{picnamerpath},</if>
+            <if test="useridnum != null  and useridnum != ''">useridNum = #{useridnum},</if>
+            <if test="username != null  and username != ''">userName = #{username},</if>
+            <if test="busiseq != null  and busiseq != ''">busiSeq = #{busiseq},</if>
+            <if test="changeid != null  and changeid != ''">changeid = #{changeid},</if>
+            <if test="channgestate != null  and channgestate != ''">channgestate = #{channgestate},</if>
+            <if test="changetime != null ">changetime = #{changetime},</if>
+            <if test="wlcompany != null  and wlcompany != ''">wlCompany = #{wlcompany},</if>
+            <if test="wlorderid != null  and wlorderid != ''">wlOrderid = #{wlorderid},</if>
+            <if test="busicode != null  and busicode != ''">busiCode = #{busicode},</if>
+            <if test="sourceid != null  and sourceid != ''">sourceId = #{sourceid},</if>
+            <if test="busiserial != null  and busiserial != ''">busiSerial = #{busiserial},</if>
+            <if test="format != null  and format != ''">format = #{format},</if>
+            <if test="sign != null  and sign != ''">sign = #{sign},</if>
+            <if test="cd != null ">cd = #{cd},</if>
+            <if test="vdef2 != null  and vdef2 != ''">vdef2 = #{vdef2},</if>
+            <if test="vdef3 != null  and vdef3 != ''">vdef3 = #{vdef3},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteHenanOrderById" parameterType="Long">
+        delete from henan_order where id = #{id}
+    </delete>
+
+    <delete id="deleteHenanOrderByIds" parameterType="String">
+        delete from henan_order where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+    
+</mapper>

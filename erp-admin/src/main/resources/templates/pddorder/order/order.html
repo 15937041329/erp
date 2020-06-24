@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org" xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
+<head>
+    <th:block th:include="include :: header('拼多多列表')" />
+</head>
+<body class="gray-bg">
+     <div class="container-div">
+        <div class="row">
+            <div class="col-sm-12 search-collapse">
+                <form id="formId">
+                    <div class="select-list">
+                        <ul>
+                            <li>
+                                <label>拼多多付款订单号：</label>
+                                <input type="text" name="pddpayorder"/>
+                            </li>
+                           <!-- <li>
+                                <label>套餐类型：</label>
+                                <select name="taocantype" th:with="type=${@dict.getType('')}">
+                                    <option value="">所有</option>
+                                    <option th:each="dict : ${type}" th:text="${dict.dictLabel}" th:value="${dict.dictValue}"></option>
+                                </select>
+                            </li>-->
+                            <li>
+                                <label>客户姓名：</label>
+                                <input type="text" name="username"/>
+                            </li>
+                            <li>
+                                <label>客户身份证号：</label>
+                                <input type="text" name="useridnum"/>
+                            </li>
+                            <li>
+                                <label>联系电话：</label>
+                                <input type="text" name="usertel"/>
+                            </li>
+                           <!-- <li>
+                                <label>省：</label>
+                                <input type="text" name="province"/>
+                            </li>
+                            <li>
+                                <label>市：</label>
+                                <input type="text" name="city"/>
+                            </li>
+                            <li>
+                                <label>区：</label>
+                                <input type="text" name="county"/>
+                            </li>
+                            <li>
+                                <label>详细地址：</label>
+                                <input type="text" name="address"/>
+                            </li>-->
+                            <li class="select-time">
+                                <label>创建时间：</label>
+                                <input type="text" class="time-input" id="startTime" placeholder="开始时间" name="params[beginCreatTime]"/>
+                                <span>-</span>
+                                <input type="text" class="time-input" id="endTime" placeholder="结束时间" name="params[endCreatTime]"/>
+                            </li>
+                          <!--  <li>
+                                <label>身份证正面：</label>
+                                <input type="text" name="zmImageUrl"/>
+                            </li>
+                            <li>
+                                <label>身份证反面：</label>
+                                <input type="text" name="fmImageUrl"/>
+                            </li>
+                            <li>
+                                <label>身份证正脸照：</label>
+                                <input type="text" name="rlImageUrl"/>
+                            </li>
+                            <li>
+                                <label>预留字段1：</label>
+                                <input type="text" name="vdef1"/>
+                            </li>
+                            <li>
+                                <label>预留字段3：</label>
+                                <input type="text" name="vdef2"/>
+                            </li>
+                            <li>
+                                <label>预留字段3：</label>
+                                <input type="text" name="vdef3"/>
+                            </li>-->
+                            <li>
+                                <a class="btn btn-primary btn-rounded btn-sm" onclick="$.table.search()"><i class="fa fa-search"></i>&nbsp;搜索</a>
+                                <a class="btn btn-warning btn-rounded btn-sm" onclick="$.form.reset()"><i class="fa fa-refresh"></i>&nbsp;重置</a>
+                            </li>
+                        </ul>
+                    </div>
+                </form>
+            </div>
+
+            <div class="btn-group-sm" id="toolbar" role="group">
+                <a class="btn btn-success" onclick="$.operate.add()" shiro:hasPermission="pddorder:order:add">
+                    <i class="fa fa-plus"></i> 添加
+                </a>
+                <a class="btn btn-primary single disabled" onclick="$.operate.edit()" shiro:hasPermission="pddorder:order:edit">
+                    <i class="fa fa-edit"></i> 修改
+                </a>
+                <a class="btn btn-danger multiple disabled" onclick="$.operate.removeAll()" shiro:hasPermission="pddorder:order:remove">
+                    <i class="fa fa-remove"></i> 删除
+                </a>
+                <a class="btn btn-warning" onclick="$.table.exportExcel()" shiro:hasPermission="pddorder:order:export">
+                    <i class="fa fa-download"></i> 导出
+                </a>
+            </div>
+            <div class="col-sm-12 select-table table-striped">
+                <table id="bootstrap-table"></table>
+            </div>
+        </div>
+    </div>
+    <th:block th:include="include :: footer" />
+    <script th:inline="javascript">
+        var editFlag = [[${@permission.hasPermi('pddorder:order:edit')}]];
+        var removeFlag = [[${@permission.hasPermi('pddorder:order:remove')}]];
+        var prefix = ctx + "pddorder/order";
+
+        $(function() {
+            var options = {
+                url: prefix + "/list",
+                createUrl: prefix + "/add",
+                updateUrl: prefix + "/edit/{id}",
+                removeUrl: prefix + "/remove",
+                exportUrl: prefix + "/export",
+                sortName: "creatTime",
+                sortOrder: "desc",
+                modalName: "拼多多",
+                columns: [{
+                    checkbox: true
+                },
+                {
+                    field: 'id', 
+                    title: 'id',
+                    visible: false
+                },
+                {
+                    field: 'pddpayorder', 
+                    title: '拼多多付款订单号'
+                },
+                {
+                    field: 'taocantype', 
+                    title: '套餐类型',
+                    formatter: function (value) {
+                        if (value == 1){
+                            return "锦鲤卡28元包200G通用+100费";
+                        }
+                        if (value == 2){
+                            return "38元无限流量+充50得100";
+                        }
+                        if (value == 3){
+                            return "超牛卡39元包40G通用+500分钟";
+                        }
+                        if (value == 4){
+                            return "超王卡9元包46G+100分钟";
+                        }
+                        if (value == 5){
+                            return "19元76G不限速+100分钟";
+                        }
+                        if (value == 6){
+                            return "19元200G不限速+0.1元/分钟";
+                        }
+                        if (value == 7){
+                            return "59元包80G通用+800分钟";
+                        }
+                    }
+                },
+                {
+                    field: 'username', 
+                    title: '客户姓名'
+                },
+                {
+                    field: 'useridnum', 
+                    title: '客户身份证号'
+                },
+                {
+                    field: 'usertel', 
+                    title: '联系电话'
+                },
+               /* {
+                    field: 'province', 
+                    title: '省'
+                },
+                {
+                    field: 'city', 
+                    title: '市'
+                },
+                {
+                    field: 'county', 
+                    title: '区'
+                },
+                {
+                    field: 'address', 
+                    title: '详细地址'
+                },
+                {
+                    field: 'creatTime', 
+                    title: '创建时间'
+                },*/
+            {
+                    field: 'zmImageUrl', 
+                    title: '身份证正面',
+                    width: 76,
+                    /*formatter: function (value, row, index) {
+                        var s = '<a class="view" href="javascript:void(0)"><img style="width:80px;height:80px;"  src="' + row.zmImageUrl + '" /></ a>';
+                        return s;
+                    },*/
+                formatter: function (value, row, index) {
+                    /*return '<img src="' + value + '" width="80" height="80" class="img">';*/
+                    return $.table.imageView(value,500,500,"self");
+                },
+                    events: 'operateEvents'
+                },
+                {
+                    field: 'fmImageUrl', 
+                    title: '身份证反面',
+                    width: 76,
+                    /*formatter: function (value, row, index) {
+                        var s = '<a class="view" href="javascript:void(0)"><img style="width:80px;height:80px;"  src="' + row.fmImageUrl + '" /></ a>';
+                        return s;
+                    },*/
+                    formatter: function (value, row, index) {
+                        /*return '<img src="' + value + '" width="80" height="80" class="img">';*/
+                        return $.table.imageView(value,500,500,"self");
+                    },
+                    events: 'operateEvents'
+                },
+                {
+                    field: 'rlImageUrl', 
+                    title: '身份证正脸照',
+                    width: 76,
+                    /*formatter: function (value, row, index) {
+                        var s = '<a class="view" href="javascript:void(0)"><img style="width:80px;height:80px;"  src="' + row.rlImageUrl + '" /></ a>';
+                        return s;
+                    },*/
+                    formatter: function (value, row, index) {
+                        /*return '<img src="' + value + '" width="80" height="80" class="img">';*/
+                        return $.table.imageView(value,500,500,"self");
+                    },
+                    events: 'operateEvents'
+                },
+                {
+                    field: 'vdef1', 
+                    title: '状态'
+                },/*,
+                {
+                    field: 'vdef2', 
+                    title: '预留字段3'
+                },
+                {
+                    field: 'vdef3', 
+                    title: '预留字段3'
+                },*/
+                {
+                    title: '操作',
+                    align: 'center',
+                    formatter: function(value, row, index) {
+                        var actions = [];
+                        actions.push('<a class="btn btn-success btn-xs ' + editFlag + '" href="javascript:void(0)" onclick="$.operate.edit(\'' + row.id + '\')"><i class="fa fa-edit"></i>编辑</a> ');
+                        actions.push('<a class="btn btn-danger btn-xs ' + removeFlag + '" href="javascript:void(0)" onclick="$.operate.remove(\'' + row.id + '\')"><i class="fa fa-remove"></i>删除</a>');
+                        return actions.join('');
+                    }
+                }]
+            };
+            $.table.init(options);
+            // 缩略图
+            var layindex;
+            window.operateEvents = {
+                'click .view': function (e, value, row, index) {
+                    var img = '<img style="width:100%;height: 100%" src="' + row.zmImageUrl + '"/>';
+                    layindex = layer.open({
+                        type: 1,
+                        title: false,
+                        closeBtn: 1,
+                        area: ['600px', '500px'],
+                        skin: '#ffffff', //没有背景色
+                        content: img
+                    });
+                }
+            };
+            $(document).keydown(function (event) {
+                if (event.keyCode == 27) {
+                    layer.close(layindex);
+                }
+            });
+            // 缩略图
+           /* var layindexf;
+            window.operateEvents = {
+                'click .view': function (e, value, row, index) {
+                    var img = '<img style="width:100%;height: 100%" src="' + row.fmImageUrl + '"/>';
+                    layindexf = layer.open({
+                        type: 1,
+                        title: false,
+                        closeBtn: 1,
+                        area: ['600px', '500px'],
+                        skin: '#ffffff', //没有背景色
+                        content: img
+                    });
+                }
+            };
+            $(document).keydown(function (event) {
+                if (event.keyCode == 27) {
+                    layer.close(layindexf);
+                }
+            });*/
+
+
+        });
+
+    </script>
+</body>
+</html>

@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zsy.beijing.mapper.BeijingOrderMapper">
+    
+    <resultMap type="BeijingOrder" id="BeijingOrderResult">
+        <result property="id"    column="id"    />
+        <result property="orderid"    column="orderId"    />
+        <result property="phonenum"    column="phoneNum"    />
+        <result property="numlevel"    column="numLevel"    />
+        <result property="custname"    column="custName"    />
+        <result property="idcardnumber"    column="idCardNumber"    />
+        <result property="idcardaddress"    column="idCardAddress"    />
+        <result property="custpostalcode"    column="custPostalCode"    />
+        <result property="linkphone"    column="linkPhone"    />
+        <result property="addresseephone"    column="addresseePhone"    />
+        <result property="addresseeaddr"    column="addresseeAddr"    />
+        <result property="numpackageid"    column="numPackageId"    />
+        <result property="numpackagename"    column="numPackageName"    />
+        <result property="operatorid"    column="operatorId"    />
+        <result property="offerid"    column="offerId"    />
+        <result property="offername"    column="offerName"    />
+        <result property="extrapackageid"    column="extraPackageId"    />
+        <result property="extrapackagename"    column="extraPackageName"    />
+        <result property="materielcode"    column="materielCode"    />
+        <result property="spreaderid"    column="spreaderId"    />
+        <result property="spreadertype"    column="spreaderType"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="returnTime"    column="return_time"    />
+        <result property="orderstate"    column="orderState"    />
+        <result property="vdef1"    column="vdef1"    />
+        <result property="vdef2"    column="vdef2"    />
+        <result property="vdef3"    column="vdef3"    />
+        <result property="vdef4"    column="vdef4"    />
+    </resultMap>
+
+    <sql id="selectBeijingOrderVo">
+        select id, orderId, phoneNum, numLevel, custName, idCardNumber, idCardAddress, custPostalCode, linkPhone, addresseePhone, addresseeAddr, numPackageId, numPackageName, operatorId, offerId, offerName, extraPackageId, extraPackageName, materielCode, spreaderId, spreaderType, create_time, return_time, orderState, vdef1, vdef2, vdef3, vdef4 from beijing_order
+    </sql>
+
+    <select id="selectBeijingOrderList" parameterType="BeijingOrder" resultMap="BeijingOrderResult">
+        <include refid="selectBeijingOrderVo"/>
+        <where>  
+            <if test="orderid != null  and orderid != ''"> and orderId = #{orderid}</if>
+            <if test="phonenum != null  and phonenum != ''"> and phoneNum = #{phonenum}</if>
+            <if test="numlevel != null  and numlevel != ''"> and numLevel = #{numlevel}</if>
+            <if test="custname != null  and custname != ''"> and custName like concat('%', #{custname}, '%')</if>
+            <if test="idcardnumber != null  and idcardnumber != ''"> and idCardNumber = #{idcardnumber}</if>
+            <if test="idcardaddress != null  and idcardaddress != ''"> and idCardAddress = #{idcardaddress}</if>
+            <if test="linkphone != null  and linkphone != ''"> and linkPhone = #{linkphone}</if>
+            <if test="addresseephone != null  and addresseephone != ''"> and addresseePhone = #{addresseephone}</if>
+            <if test="createTime != null "> and create_time = #{createTime}</if>
+            <if test="returnTime != null "> and return_time = #{returnTime}</if>
+            <if test="orderstate != null "> and orderState = #{orderstate}</if>
+            <if test="vdef1 != null  and vdef1 != ''"> and vdef1 = #{vdef1}</if>
+        </where>
+    </select>
+    
+    <select id="selectBeijingOrderById" parameterType="Long" resultMap="BeijingOrderResult">
+        <include refid="selectBeijingOrderVo"/>
+        where id = #{id}
+    </select>
+        
+    <insert id="insertBeijingOrder" parameterType="BeijingOrder" useGeneratedKeys="true" keyProperty="id">
+        insert into beijing_order
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="orderid != null  and orderid != ''">orderId,</if>
+            <if test="phonenum != null  and phonenum != ''">phoneNum,</if>
+            <if test="numlevel != null  and numlevel != ''">numLevel,</if>
+            <if test="custname != null  and custname != ''">custName,</if>
+            <if test="idcardnumber != null  and idcardnumber != ''">idCardNumber,</if>
+            <if test="idcardaddress != null  and idcardaddress != ''">idCardAddress,</if>
+            <if test="custpostalcode != null  and custpostalcode != ''">custPostalCode,</if>
+            <if test="linkphone != null  and linkphone != ''">linkPhone,</if>
+            <if test="addresseephone != null  and addresseephone != ''">addresseePhone,</if>
+            <if test="addresseeaddr != null  and addresseeaddr != ''">addresseeAddr,</if>
+            <if test="numpackageid != null  and numpackageid != ''">numPackageId,</if>
+            <if test="numpackagename != null  and numpackagename != ''">numPackageName,</if>
+            <if test="operatorid != null  and operatorid != ''">operatorId,</if>
+            <if test="offerid != null  and offerid != ''">offerId,</if>
+            <if test="offername != null  and offername != ''">offerName,</if>
+            <if test="extrapackageid != null  and extrapackageid != ''">extraPackageId,</if>
+            <if test="extrapackagename != null  and extrapackagename != ''">extraPackageName,</if>
+            <if test="materielcode != null  and materielcode != ''">materielCode,</if>
+            <if test="spreaderid != null  and spreaderid != ''">spreaderId,</if>
+            <if test="spreadertype != null  and spreadertype != ''">spreaderType,</if>
+            <if test="createTime != null ">create_time,</if>
+            <if test="returnTime != null ">return_time,</if>
+            <if test="orderstate != null ">orderState,</if>
+            <if test="vdef1 != null  and vdef1 != ''">vdef1,</if>
+            <if test="vdef2 != null  and vdef2 != ''">vdef2,</if>
+            <if test="vdef3 != null  and vdef3 != ''">vdef3,</if>
+            <if test="vdef4 != null  and vdef4 != ''">vdef4,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="orderid != null  and orderid != ''">#{orderid},</if>
+            <if test="phonenum != null  and phonenum != ''">#{phonenum},</if>
+            <if test="numlevel != null  and numlevel != ''">#{numlevel},</if>
+            <if test="custname != null  and custname != ''">#{custname},</if>
+            <if test="idcardnumber != null  and idcardnumber != ''">#{idcardnumber},</if>
+            <if test="idcardaddress != null  and idcardaddress != ''">#{idcardaddress},</if>
+            <if test="custpostalcode != null  and custpostalcode != ''">#{custpostalcode},</if>
+            <if test="linkphone != null  and linkphone != ''">#{linkphone},</if>
+            <if test="addresseephone != null  and addresseephone != ''">#{addresseephone},</if>
+            <if test="addresseeaddr != null  and addresseeaddr != ''">#{addresseeaddr},</if>
+            <if test="numpackageid != null  and numpackageid != ''">#{numpackageid},</if>
+            <if test="numpackagename != null  and numpackagename != ''">#{numpackagename},</if>
+            <if test="operatorid != null  and operatorid != ''">#{operatorid},</if>
+            <if test="offerid != null  and offerid != ''">#{offerid},</if>
+            <if test="offername != null  and offername != ''">#{offername},</if>
+            <if test="extrapackageid != null  and extrapackageid != ''">#{extrapackageid},</if>
+            <if test="extrapackagename != null  and extrapackagename != ''">#{extrapackagename},</if>
+            <if test="materielcode != null  and materielcode != ''">#{materielcode},</if>
+            <if test="spreaderid != null  and spreaderid != ''">#{spreaderid},</if>
+            <if test="spreadertype != null  and spreadertype != ''">#{spreadertype},</if>
+            <if test="createTime != null ">#{createTime},</if>
+            <if test="returnTime != null ">#{returnTime},</if>
+            <if test="orderstate != null ">#{orderstate},</if>
+            <if test="vdef1 != null  and vdef1 != ''">#{vdef1},</if>
+            <if test="vdef2 != null  and vdef2 != ''">#{vdef2},</if>
+            <if test="vdef3 != null  and vdef3 != ''">#{vdef3},</if>
+            <if test="vdef4 != null  and vdef4 != ''">#{vdef4},</if>
+         </trim>
+    </insert>
+
+    <update id="updateBeijingOrder" parameterType="BeijingOrder">
+        update beijing_order
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="orderid != null  and orderid != ''">orderId = #{orderid},</if>
+            <if test="phonenum != null  and phonenum != ''">phoneNum = #{phonenum},</if>
+            <if test="numlevel != null  and numlevel != ''">numLevel = #{numlevel},</if>
+            <if test="custname != null  and custname != ''">custName = #{custname},</if>
+            <if test="idcardnumber != null  and idcardnumber != ''">idCardNumber = #{idcardnumber},</if>
+            <if test="idcardaddress != null  and idcardaddress != ''">idCardAddress = #{idcardaddress},</if>
+            <if test="custpostalcode != null  and custpostalcode != ''">custPostalCode = #{custpostalcode},</if>
+            <if test="linkphone != null  and linkphone != ''">linkPhone = #{linkphone},</if>
+            <if test="addresseephone != null  and addresseephone != ''">addresseePhone = #{addresseephone},</if>
+            <if test="addresseeaddr != null  and addresseeaddr != ''">addresseeAddr = #{addresseeaddr},</if>
+            <if test="numpackageid != null  and numpackageid != ''">numPackageId = #{numpackageid},</if>
+            <if test="numpackagename != null  and numpackagename != ''">numPackageName = #{numpackagename},</if>
+            <if test="operatorid != null  and operatorid != ''">operatorId = #{operatorid},</if>
+            <if test="offerid != null  and offerid != ''">offerId = #{offerid},</if>
+            <if test="offername != null  and offername != ''">offerName = #{offername},</if>
+            <if test="extrapackageid != null  and extrapackageid != ''">extraPackageId = #{extrapackageid},</if>
+            <if test="extrapackagename != null  and extrapackagename != ''">extraPackageName = #{extrapackagename},</if>
+            <if test="materielcode != null  and materielcode != ''">materielCode = #{materielcode},</if>
+            <if test="spreaderid != null  and spreaderid != ''">spreaderId = #{spreaderid},</if>
+            <if test="spreadertype != null  and spreadertype != ''">spreaderType = #{spreadertype},</if>
+            <if test="createTime != null ">create_time = #{createTime},</if>
+            <if test="returnTime != null ">return_time = #{returnTime},</if>
+            <if test="orderstate != null ">orderState = #{orderstate},</if>
+            <if test="vdef1 != null  and vdef1 != ''">vdef1 = #{vdef1},</if>
+            <if test="vdef2 != null  and vdef2 != ''">vdef2 = #{vdef2},</if>
+            <if test="vdef3 != null  and vdef3 != ''">vdef3 = #{vdef3},</if>
+            <if test="vdef4 != null  and vdef4 != ''">vdef4 = #{vdef4},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteBeijingOrderById" parameterType="Long">
+        delete from beijing_order where id = #{id}
+    </delete>
+
+    <delete id="deleteBeijingOrderByIds" parameterType="String">
+        delete from beijing_order where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+    
+</mapper>

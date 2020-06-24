@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org" >
+<head>
+    <th:block th:include="include :: header('修改商品信息')" />
+</head>
+<body class="white-bg">
+    <div class="wrapper wrapper-content animated fadeInRight ibox-content">
+        <form class="form-horizontal m" id="form-product-edit" th:object="${product}">
+            <input name="id" th:field="*{id}" type="hidden">
+            <div class="row">
+                <div class="col-sm-6">
+                    <div class="form-group">
+                        <label class="col-sm-4 control-label is-required">商品SKU：</label>
+                        <div class="col-sm-8">
+                            <input name="itemSku" class="form-control" th:field="*{itemSku}" readonly type="text" required>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <div class="form-group">
+                        <label class="col-sm-4 control-label is-required">UPC编号：</label>
+                        <div class="col-sm-8">
+                            <input name="externalProductIdType" th:field="*{externalProductIdType}" class="form-control" value="UPC" type="text" required>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="form-group">
+                        <label class="col-xs-2 control-label is-required">商品名称：</label>
+                        <div class="col-xs-10">
+                            <input name="itemName" th:field="*{itemName}" class="form-control" type="text" required>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="form-group">
+                        <label class="col-xs-2 control-label">关键字：</label>
+                        <div class="col-xs-10">
+                            <input name="genericKeywords1" th:field="*{genericKeywords1}" class="form-control" type="text">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="form-group">
+                        <label class="col-xs-2 control-label is-required">产品描述：</label>
+                        <div class="col-xs-10">
+                            <textarea type="text" th:field="*{productDescription}" name="productDescription" class="form-control" required></textarea>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="form-group">
+                        <label class="col-xs-2 control-label is-required">商品主图：</label>
+                        <div class="col-xs-10">
+                            <div class="layui-upload">
+                                <button type="button" class="layui-btn" id="test1"><i class="layui-icon">&#xe67c;</i>上传图片</button>
+                                <div class="layui-upload-list">
+                                    <img class="layui-upload-img" th:src="${product.mainImageUrl}" id="demo1" style="width: 100px;height: 100px;margin: 0;">
+                                    <p id="demoText1"></p >
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <input id="mainImageUrl" name="mainImageUrl" th:field="*{mainImageUrl}" class="form-control" type="hidden">
+
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="form-group">
+                        <label class="col-xs-2 control-label">商品宣传图片：</label>
+                        <div class="col-xs-10">
+                            <div class="layui-upload">
+                                <button type="button" class="layui-btn layui-btn-normal" id="testList">选择多文件</button>
+                                <div class="layui-upload-list">
+                                    <table class="layui-table">
+                                        <thead>
+                                        <tr>
+                                            <th>文件</th>
+                                            <th>大小</th>
+                                            <th>状态</th>
+                                            <th>操作</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody id="demoList"></tbody>
+                                    </table>
+                                </div>
+                                <button type="button" class="layui-btn" id="testListAction">开始上传</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <input id="otherImageUrl1" name="otherImageUrl1" th:field="*{otherImageUrl1}" class="form-control" type="hidden">
+            <input id="otherImageUrl2" name="otherImageUrl2" th:field="*{otherImageUrl2}" class="form-control" type="hidden">
+            <input id="otherImageUrl3" name="otherImageUrl3" th:field="*{otherImageUrl3}" class="form-control" type="hidden">
+            <input id="otherImageUrl4" name="otherImageUrl4" th:field="*{otherImageUrl4}" class="form-control" type="hidden">
+            <input id="otherImageUrl5" name="otherImageUrl5" th:field="*{otherImageUrl5}" class="form-control" type="hidden">
+            <input id="otherImageUrl6" name="otherImageUrl6" th:field="*{otherImageUrl6}" class="form-control" type="hidden">
+            <input id="otherImageUrl7" name="otherImageUrl7" th:field="*{otherImageUrl7}" class="form-control" type="hidden">
+            <input id="otherImageUrl8" name="otherImageUrl8" th:field="*{otherImageUrl8}" class="form-control" type="hidden">
+        </form>
+    </div>
+    <th:block th:include="include :: footer" />
+    <script type="text/javascript">
+        var prefix = ctx + "product/product";
+        $("#form-product-edit").validate({
+            focusCleanup: true
+        });
+
+        function submitHandler() {
+            if ($.validate.form()) {
+                $.operate.save(prefix + "/edit", $('#form-product-edit').serialize());
+            }
+        }
+
+        // 商品封面--上传图片
+        layui.use('upload', function () {
+            var upload = layui.upload;
+            //普通图片上传
+            var uploadInst = upload.render({
+                elem: '#test1'
+                , url: '/common/upload'
+                , before: function (obj) {
+                    //预读本地文件示例，不支持ie8
+                    obj.preview(function (index, file, result) {
+                        $('#demo1').attr('src', result);
+                    });
+                }
+                , done: function (res) {
+
+                    // layer.close(layer.msg());//关闭上传提示窗口
+                    //如果上传失败
+                    if (res.code > 0) {
+                        return layer.msg('上传失败');
+                    }
+                    layer.msg("上传成功");
+                    //上传成功
+                    $("#mainImageUrl").val(res.url);
+
+                    $('#demo1').attr('src', res.url);
+                }
+                , error: function () {
+                    //演示失败状态，并实现重传
+                    var demoText = $('#demoText1');
+                    demoText.html('<span style="color: #FF5722;">上传失败</span> <a class="layui-btn layui-btn-xs demo-reload">重试</ a>');
+                    demoText.find('.demo-reload').on('click', function () {
+                        uploadInst.upload();
+                    });
+                }
+            });
+
+            //多文件列表示例
+            var demoListView = $('#demoList')
+                , uploadListIns = upload.render({
+                elem: '#testList'
+                , url: '/common/upload' //改成您自己的上传接口
+                , accept: 'file'
+                , multiple: true
+                , auto: false
+                , bindAction: '#testListAction'
+                , choose: function (obj) {
+                    var files = this.files = obj.pushFile(); //将每次选择的文件追加到文件队列
+                    //读取本地文件
+                    obj.preview(function (index, file, result) {
+                        var tr = $(['<tr id="upload-' + index + '">'
+                            , '<td>'+file.name+'</td>'
+                            , '<td>' + (file.size / 1024).toFixed(1) + 'kb</td>'
+                            , '<td>等待上传</td>'
+                            , '<td>'
+                            , '<button class="layui-btn layui-btn-xs demo-reload layui-hide">重传</button>'
+                            , '<button class="layui-btn layui-btn-xs layui-btn-danger demo-delete">删除</button>'
+                            , '</td>'
+                            , '</tr>'].join(''));
+
+                        //单个重传
+                        tr.find('.demo-reload').on('click', function () {
+                            obj.upload(index, file);
+                        });
+
+                        //删除
+                        tr.find('.demo-delete').on('click', function () {
+                            delete files[index]; //删除对应的文件
+                            tr.remove();
+                            uploadListIns.config.elem.next()[0].value = ''; //清空 input file 值，以免删除后出现同名文件不可选
+                        });
+
+                        demoListView.append(tr);
+                    });
+                }
+                , done: function (res, index, upload) {
+                    var _index = index.toString().substring(index.toString().length-1)
+                    if (res.code == 0) { //上传成功
+                        var tr = demoListView.find('tr#upload-' + index)
+                            , tds = tr.children();
+                        tds.eq(0).html('<img class="layui-upload-img" src="'+res.url+'" style="width: 30px;height: 30px;margin: 0;">');
+                        tds.eq(2).html('<span style="color: #5FB878;">上传成功</span>');
+                        tds.eq(3).html(''); //清空操作
+
+                        _index = parseInt(_index) + 1;
+                        $("#otherImageUrl"+ _index).val(res.url);
+
+                        return delete this.files[index]; //删除文件队列已经上传成功的文件
+                    }
+                    this.error(index, upload);
+                }
+                , error: function (index, upload) {
+                    var tr = demoListView.find('tr#upload-' + index)
+                        , tds = tr.children();
+                    tds.eq(2).html('<span style="color: #FF5722;">上传失败</span>');
+                    tds.eq(3).find('.demo-reload').removeClass('layui-hide'); //显示重传
+                }
+            });
+        });
+
+        $(function() {
+            for (var i = 1; i < 10; i++) {
+                var data = $("#otherImageUrl"+i).val();
+                if ($.common.isNotEmpty(data)){
+                    var tr = $(['<tr id="upload-' + i + '">'
+                        , '<td><img class="layui-upload-img" src="'+data+'" style="width: 30px;height: 30px;margin: 0;"></td>'
+                        , '<td>不到20M</td>'
+                        , '<td><span style="color: #5FB878;">已上传</span></td>'
+                        , '<td>'
+                        , '<button class="layui-btn layui-btn-xs layui-btn-danger demo-delete2">删除</button>'
+                        , '<input class="layui-hide attId" value="' + data + '," type="text">'
+                        , '</td>'
+                        , '</tr>'].join(''));
+                    $('#demoList').append(tr);
+                }
+            }
+            // 已有文件删除
+            $('.demo-delete2').on('click', function () {
+                var parentId = $(this).parents("tr").attr("id");
+                var _index = parentId.substring(parentId.length-1);
+                $("#otherImageUrl"+_index).val("");
+                $(this).parents("tr").remove();
+            });
+        })
+    </script>
+</body>
+</html>

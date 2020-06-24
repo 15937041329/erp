@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org" >
+<head>
+    <th:block th:include="include :: header('修改河南订单')" />
+    <th:block th:include="include :: datetimepicker-css" />
+</head>
+<body class="white-bg">
+    <div class="wrapper wrapper-content animated fadeInRight ibox-content">
+        <form class="form-horizontal m" id="form-order-edit" th:object="${henanOrder}">
+            <input name="id" th:field="*{id}" type="hidden">
+            <div class="form-group">    
+                <label class="col-sm-3 control-label">预占号码：</label>
+                <div class="col-sm-8">
+                    <input name="cardsvcnum" th:field="*{cardsvcnum}" class="form-control" type="text">
+                </div>
+            </div>
+            <div class="form-group">    
+                <label class="col-sm-3 control-label">预占号码所属地市：</label>
+                <div class="col-sm-8">
+                    <input name="cardregion" th:field="*{cardregion}" class="form-control" type="text">
+                </div>
+            </div>
+            <div class="form-group">    
+                <label class="col-sm-3 control-label">联系电话：</label>
+                <div class="col-sm-8">
+                    <input name="usertel" th:field="*{usertel}" class="form-control" type="text">
+                </div>
+            </div>
+            <div class="form-group">    
+                <label class="col-sm-3 control-label">省：</label>
+                <div class="col-sm-8">
+                    <input name="province" th:field="*{province}" class="form-control" type="text">
+                </div>
+            </div>
+            <div class="form-group">    
+                <label class="col-sm-3 control-label">市：</label>
+                <div class="col-sm-8">
+                    <input name="city" th:field="*{city}" class="form-control" type="text">
+                </div>
+            </div>
+            <div class="form-group">    
+                <label class="col-sm-3 control-label">区：</label>
+                <div class="col-sm-8">
+                    <input name="county" th:field="*{county}" class="form-control" type="text">
+                </div>
+            </div>
+            <div class="form-group">    
+                <label class="col-sm-3 control-label">镇/村：</label>
+                <div class="col-sm-8">
+                    <input name="town" th:field="*{town}" class="form-control" type="text">
+                </div>
+            </div>
+            <div class="form-group">    
+                <label class="col-sm-3 control-label">详细地址：</label>
+                <div class="col-sm-8">
+                    <input name="address" th:field="*{address}" class="form-control" type="text">
+                </div>
+            </div>
+            <div class="form-group">    
+                <label class="col-sm-3 control-label">套餐id：</label>
+                <div class="col-sm-8">
+                    <input name="outprodid" th:field="*{outprodid}" class="form-control" type="text">
+                </div>
+            </div>
+            <div class="form-group">    
+                <label class="col-sm-3 control-label">集团统一产品编码：</label>
+                <div class="col-sm-8">
+                    <input name="ouprodprcid" th:field="*{ouprodprcid}" class="form-control" type="text">
+                </div>
+            </div>
+            <div class="form-group">    
+                <label class="col-sm-3 control-label">支付金额：</label>
+                <div class="col-sm-8">
+                    <input name="payamount" th:field="*{payamount}" class="form-control" type="text">
+                </div>
+            </div>
+            <div class="form-group">    
+                <label class="col-sm-3 control-label">取卡方式：</label>
+                <div class="col-sm-8">
+                    <select name="havecardtype" class="form-control m-b">
+                        <option value="">所有</option>
+                    </select>
+                    <span class="help-block m-b-none"><i class="fa fa-info-circle"></i> 代码生成请选择字典属性</span>
+                </div>
+            </div>
+            <div class="form-group">    
+                <label class="col-sm-3 control-label">外部订单id：</label>
+                <div class="col-sm-8">
+                    <input name="outorderid" th:field="*{outorderid}" class="form-control" type="text">
+                </div>
+            </div>
+            <div class="form-group">    
+                <label class="col-sm-3 control-label">收货人：</label>
+                <div class="col-sm-8">
+                    <input name="contactsname" th:field="*{contactsname}" class="form-control" type="text">
+                </div>
+            </div>
+            <div class="form-group">    
+                <label class="col-sm-3 control-label">用户拍摄人图像名称：</label>
+                <div class="col-sm-8">
+                    <input name="picnamerpath" th:field="*{picnamerpath}" class="form-control" type="text">
+                </div>
+            </div>
+            <div class="form-group">    
+                <label class="col-sm-3 control-label">客户身份证号：</label>
+                <div class="col-sm-8">
+                    <input name="useridnum" th:field="*{useridnum}" class="form-control" type="text">
+                </div>
+            </div>
+            <div class="form-group">    
+                <label class="col-sm-3 control-label">客户姓名：</label>
+                <div class="col-sm-8">
+                    <input name="username" th:field="*{username}" class="form-control" type="text">
+                </div>
+            </div>
+            <div class="form-group">    
+                <label class="col-sm-3 control-label">调用证件文字识别人像比对认证时的流水号和接口返回的在线流水号调用证件文字识别人像比对认证时的流水号和接口返回的在线流水号调用证件文字识别人像比对认证时的流水号和接口返回的在线流水号调用证件文字识别人像比对认证时的流水号和接口返回的在线流水号调用证件文字识别人像比对认证时的流水号和接口返回的在线流水号：</label>
+                <div class="col-sm-8">
+                    <input name="busiseq" th:field="*{busiseq}" class="form-control" type="text">
+                </div>
+            </div>
+            <div class="form-group">    
+                <label class="col-sm-3 control-label">状态通知唯一标识：</label>
+                <div class="col-sm-8">
+                    <input name="changeid" th:field="*{changeid}" class="form-control" type="text">
+                </div>
+            </div>
+            <div class="form-group">    
+                <label class="col-sm-3 control-label">状态变更：</label>
+                <div class="col-sm-8">
+                    <input name="channgestate" th:field="*{channgestate}" class="form-control" type="text">
+                </div>
+            </div>
+            <div class="form-group">    
+                <label class="col-sm-3 control-label">状态变更时间：</label>
+                <div class="col-sm-8">
+                    <div class="input-group date">
+                        <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                        <input name="changetime" th:value="${#dates.format(henanOrder.changetime, 'yyyy-MM-dd')}" class="form-control" placeholder="yyyy-MM-dd" type="text">
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">    
+                <label class="col-sm-3 control-label">物流公司：</label>
+                <div class="col-sm-8">
+                    <input name="wlcompany" th:field="*{wlcompany}" class="form-control" type="text">
+                </div>
+            </div>
+            <div class="form-group">    
+                <label class="col-sm-3 control-label">物流单号：</label>
+                <div class="col-sm-8">
+                    <input name="wlorderid" th:field="*{wlorderid}" class="form-control" type="text">
+                </div>
+            </div>
+            <div class="form-group">    
+                <label class="col-sm-3 control-label">接口编码：</label>
+                <div class="col-sm-8">
+                    <input name="busicode" th:field="*{busicode}" class="form-control" type="text">
+                </div>
+            </div>
+            <div class="form-group">    
+                <label class="col-sm-3 control-label">请求系统标识：</label>
+                <div class="col-sm-8">
+                    <input name="sourceid" th:field="*{sourceid}" class="form-control" type="text">
+                </div>
+            </div>
+            <div class="form-group">    
+                <label class="col-sm-3 control-label">业务流水：</label>
+                <div class="col-sm-8">
+                    <input name="busiserial" th:field="*{busiserial}" class="form-control" type="text">
+                </div>
+            </div>
+            <div class="form-group">    
+                <label class="col-sm-3 control-label">业务参数格式：</label>
+                <div class="col-sm-8">
+                    <input name="format" th:field="*{format}" class="form-control" type="text">
+                </div>
+            </div>
+            <div class="form-group">    
+                <label class="col-sm-3 control-label">签名：</label>
+                <div class="col-sm-8">
+                    <input name="sign" th:field="*{sign}" class="form-control" type="text">
+                </div>
+            </div>
+            <div class="form-group">    
+                <label class="col-sm-3 control-label">创建时间：</label>
+                <div class="col-sm-8">
+                    <div class="input-group date">
+                        <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                        <input name="cd" th:value="${#dates.format(henanOrder.cd, 'yyyy-MM-dd')}" class="form-control" placeholder="yyyy-MM-dd" type="text">
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">    
+                <label class="col-sm-3 control-label">分销标识：</label>
+                <div class="col-sm-8">
+                    <input name="vdef2" th:field="*{vdef2}" class="form-control" type="text">
+                </div>
+            </div>
+        </form>
+    </div>
+    <th:block th:include="include :: footer" />
+    <th:block th:include="include :: datetimepicker-js" />
+    <script type="text/javascript">
+        var prefix = ctx + "henan/order";
+        $("#form-order-edit").validate({
+            focusCleanup: true
+        });
+
+        function submitHandler() {
+            if ($.validate.form()) {
+                $.operate.save(prefix + "/edit", $('#form-order-edit').serialize());
+            }
+        }
+
+        $("input[name='changetime']").datetimepicker({
+            format: "yyyy-mm-dd",
+            minView: "month",
+            autoclose: true
+        });
+
+        $("input[name='cd']").datetimepicker({
+            format: "yyyy-mm-dd",
+            minView: "month",
+            autoclose: true
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zsy.pddorder.mapper.PddOrderMapper">
+    
+    <resultMap type="PddOrder" id="PddOrderResult">
+        <result property="id"    column="id"    />
+        <result property="pddpayorder"    column="pddpayorder"    />
+        <result property="taocantype"    column="taocantype"    />
+        <result property="username"    column="userName"    />
+        <result property="useridnum"    column="useridNum"    />
+        <result property="usertel"    column="userTel"    />
+        <result property="province"    column="province"    />
+        <result property="city"    column="city"    />
+        <result property="county"    column="county"    />
+        <result property="address"    column="address"    />
+        <result property="creatTime"    column="creat_time"    />
+        <result property="zmImageUrl"    column="zm_image_url"    />
+        <result property="fmImageUrl"    column="fm_image_url"    />
+        <result property="rlImageUrl"    column="rl_image_url"    />
+        <result property="vdef1"    column="vdef1"    />
+        <result property="vdef2"    column="vdef2"    />
+        <result property="vdef3"    column="vdef3"    />
+    </resultMap>
+
+    <sql id="selectPddOrderVo">
+        select id, pddpayorder, taocantype, userName, useridNum, userTel, province, city, county, address, creat_time, zm_image_url, fm_image_url, rl_image_url, vdef1, vdef2, vdef3 from pdd_order
+    </sql>
+
+    <select id="selectPddOrderList" parameterType="PddOrder" resultMap="PddOrderResult">
+        <include refid="selectPddOrderVo"/>
+        <where>  
+            <if test="pddpayorder != null  and pddpayorder != ''"> and pddpayorder = #{pddpayorder}</if>
+            <if test="taocantype != null "> and taocantype = #{taocantype}</if>
+            <if test="username != null  and username != ''"> and userName like concat('%', #{username}, '%')</if>
+            <if test="useridnum != null  and useridnum != ''"> and useridNum = #{useridnum}</if>
+            <if test="usertel != null  and usertel != ''"> and userTel = #{usertel}</if>
+            <if test="province != null  and province != ''"> and province = #{province}</if>
+            <if test="city != null  and city != ''"> and city = #{city}</if>
+            <if test="county != null  and county != ''"> and county = #{county}</if>
+            <if test="address != null  and address != ''"> and address = #{address}</if>
+            <if test="creatTime != null "> and creat_time = #{creatTime}</if>
+            <if test="zmImageUrl != null  and zmImageUrl != ''"> and zm_image_url = #{zmImageUrl}</if>
+            <if test="fmImageUrl != null  and fmImageUrl != ''"> and fm_image_url = #{fmImageUrl}</if>
+            <if test="rlImageUrl != null  and rlImageUrl != ''"> and rl_image_url = #{rlImageUrl}</if>
+            <if test="vdef1 != null  and vdef1 != ''"> and vdef1 = #{vdef1}</if>
+            <if test="vdef2 != null  and vdef2 != ''"> and vdef2 = #{vdef2}</if>
+            <if test="vdef3 != null  and vdef3 != ''"> and vdef3 = #{vdef3}</if>
+        </where>
+    </select>
+    
+    <select id="selectPddOrderById" parameterType="Long" resultMap="PddOrderResult">
+        <include refid="selectPddOrderVo"/>
+        where id = #{id}
+    </select>
+        
+    <insert id="insertPddOrder" parameterType="PddOrder" useGeneratedKeys="true" keyProperty="id">
+        insert into pdd_order
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="pddpayorder != null  and pddpayorder != ''">pddpayorder,</if>
+            <if test="taocantype != null ">taocantype,</if>
+            <if test="username != null  and username != ''">userName,</if>
+            <if test="useridnum != null  and useridnum != ''">useridNum,</if>
+            <if test="usertel != null  and usertel != ''">userTel,</if>
+            <if test="province != null  and province != ''">province,</if>
+            <if test="city != null  and city != ''">city,</if>
+            <if test="county != null  and county != ''">county,</if>
+            <if test="address != null  and address != ''">address,</if>
+            <if test="creatTime != null ">creat_time,</if>
+            <if test="zmImageUrl != null  and zmImageUrl != ''">zm_image_url,</if>
+            <if test="fmImageUrl != null  and fmImageUrl != ''">fm_image_url,</if>
+            <if test="rlImageUrl != null  and rlImageUrl != ''">rl_image_url,</if>
+            <if test="vdef1 != null  and vdef1 != ''">vdef1,</if>
+            <if test="vdef2 != null  and vdef2 != ''">vdef2,</if>
+            <if test="vdef3 != null  and vdef3 != ''">vdef3,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="pddpayorder != null  and pddpayorder != ''">#{pddpayorder},</if>
+            <if test="taocantype != null ">#{taocantype},</if>
+            <if test="username != null  and username != ''">#{username},</if>
+            <if test="useridnum != null  and useridnum != ''">#{useridnum},</if>
+            <if test="usertel != null  and usertel != ''">#{usertel},</if>
+            <if test="province != null  and province != ''">#{province},</if>
+            <if test="city != null  and city != ''">#{city},</if>
+            <if test="county != null  and county != ''">#{county},</if>
+            <if test="address != null  and address != ''">#{address},</if>
+            <if test="creatTime != null ">#{creatTime},</if>
+            <if test="zmImageUrl != null  and zmImageUrl != ''">#{zmImageUrl},</if>
+            <if test="fmImageUrl != null  and fmImageUrl != ''">#{fmImageUrl},</if>
+            <if test="rlImageUrl != null  and rlImageUrl != ''">#{rlImageUrl},</if>
+            <if test="vdef1 != null  and vdef1 != ''">#{vdef1},</if>
+            <if test="vdef2 != null  and vdef2 != ''">#{vdef2},</if>
+            <if test="vdef3 != null  and vdef3 != ''">#{vdef3},</if>
+         </trim>
+    </insert>
+
+    <update id="updatePddOrder" parameterType="PddOrder">
+        update pdd_order
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="pddpayorder != null  and pddpayorder != ''">pddpayorder = #{pddpayorder},</if>
+            <if test="taocantype != null ">taocantype = #{taocantype},</if>
+            <if test="username != null  and username != ''">userName = #{username},</if>
+            <if test="useridnum != null  and useridnum != ''">useridNum = #{useridnum},</if>
+            <if test="usertel != null  and usertel != ''">userTel = #{usertel},</if>
+            <if test="province != null  and province != ''">province = #{province},</if>
+            <if test="city != null  and city != ''">city = #{city},</if>
+            <if test="county != null  and county != ''">county = #{county},</if>
+            <if test="address != null  and address != ''">address = #{address},</if>
+            <if test="creatTime != null ">creat_time = #{creatTime},</if>
+            <if test="zmImageUrl != null  and zmImageUrl != ''">zm_image_url = #{zmImageUrl},</if>
+            <if test="fmImageUrl != null  and fmImageUrl != ''">fm_image_url = #{fmImageUrl},</if>
+            <if test="rlImageUrl != null  and rlImageUrl != ''">rl_image_url = #{rlImageUrl},</if>
+            <if test="vdef1 != null  and vdef1 != ''">vdef1 = #{vdef1},</if>
+            <if test="vdef2 != null  and vdef2 != ''">vdef2 = #{vdef2},</if>
+            <if test="vdef3 != null  and vdef3 != ''">vdef3 = #{vdef3},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deletePddOrderById" parameterType="Long">
+        delete from pdd_order where id = #{id}
+    </delete>
+
+    <delete id="deletePddOrderByIds" parameterType="String">
+        delete from pdd_order where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+    
+</mapper>
