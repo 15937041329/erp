@@ -36,6 +36,7 @@ public class BeijingOrderController extends BaseController
     @Autowired
     private IBeijingOrderService beijingOrderService;
 
+
     @RequiresPermissions("beijing:order:view")
     @GetMapping()
     public String order()
