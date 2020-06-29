@@ -16,7 +16,7 @@ cloud:
 # 开发环境配置
 server:
   # 服务器的HTTP端口，默认为80
-  port: 8069
+  port: 8068
   servlet:
     # 应用的访问路径
     context-path: /
