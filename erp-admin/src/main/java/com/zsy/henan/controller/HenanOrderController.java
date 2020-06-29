@@ -34,6 +34,7 @@ public class HenanOrderController extends BaseController
     private String prefix = "henan/order";
 
     @Autowired
+
     private IHenanOrderService henanOrderService;
 
     @RequiresPermissions("henan:order:view")
