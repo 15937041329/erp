@@ -67,10 +67,7 @@
                                 <label>身份证正脸照：</label>
                                 <input type="text" name="rlImageUrl"/>
                             </li>
-                            <li>
-                                <label>预留字段1：</label>
-                                <input type="text" name="vdef1"/>
-                            </li>
+
                             <li>
                                 <label>预留字段3：</label>
                                 <input type="text" name="vdef2"/>
@@ -79,6 +76,17 @@
                                 <label>预留字段3：</label>
                                 <input type="text" name="vdef3"/>
                             </li>-->
+
+                            <li>
+                                <label>订单状态：</label>
+                             <!--   <input type="text" name="vdef1"/>-->
+                                <select name="vdef1" th:with="type=${@dict.getType('')}">
+                                    <option value="等候处理">等候处理</option>
+                                    <option value="已处理">已处理</option>
+                                    <option value="">全部</option>
+                                    <option th:each="dict : ${type}" th:text="${dict.dictLabel}" th:value="${dict.dictValue}"></option>
+                                </select>
+                            </li>
                             <li>
                                 <a class="btn btn-primary btn-rounded btn-sm" onclick="$.table.search()"><i class="fa fa-search"></i>&nbsp;搜索</a>
                                 <a class="btn btn-warning btn-rounded btn-sm" onclick="$.form.reset()"><i class="fa fa-refresh"></i>&nbsp;重置</a>
@@ -140,26 +148,88 @@
                     title: '套餐类型',
                     formatter: function (value) {
                         if (value == 1){
-                            return "锦鲤卡28元包200G通用+100费";
+                            return "移动";
                         }
                         if (value == 2){
-                            return "38元无限流量+充50得100";
+                            return "联通";
                         }
                         if (value == 3){
-                            return "超牛卡39元包40G通用+500分钟";
+                            return "电信";
                         }
-                        if (value == 4){
-                            return "超王卡9元包46G+100分钟";
+
+                        /*  if (value == 1){
+                            return "38元全国无限流量400分钟";
+                        }
+                        if (value == 2){
+                            return "43元200G通用流量400分钟";
+                        }
+                        if (value == 3){
+                            return "1元1天畅享无限通用流量";
+                        }
+                      if (value == 4){
+                            return "超牛卡39元40G通用+500分";
                         }
                         if (value == 5){
-                            return "19元76G不限速+100分钟";
+                            return "59元80G通用流量+800分钟";
                         }
                         if (value == 6){
-                            return "19元200G不限速+0.1元/分钟";
+                            return "19元76G流量+100分钟";
                         }
                         if (value == 7){
-                            return "59元包80G通用+800分钟";
+                            return "19元15G通用+300分钟";
                         }
+
+                        if (value == 8){
+                            return "8元45G定向+100分钟";
+                        }
+                        if (value == 9){
+                            return "18元63G流量+100分钟";
+                        }
+                        if (value == 10){
+                            return "19元200G不限速+0.1元/分";
+                        }
+                        if (value == 11){
+                            return "39元200G不限速+会员权益";
+                        }
+                        if (value == 12){
+                            return "19元76G流量+100分钟";
+                        }
+                        if (value == 13){
+                            return "28元65G通用+120分钟";
+                        }
+                        if (value == 14){
+                            return "王卡9元包40G腾讯系免流";
+                        }
+                        if (value == 15){
+                            return "宝卡9元40G流量+100分钟";
+                        }
+                        if (value == 16){
+                            return "悦心卡【月租29元30G+500分钟】";
+                        }
+                        if (value == 17){
+                            return "29元无限流量+100分钟";
+                        }
+                        if (value == 18){
+                            return "49元300G流量+300分钟";
+                        }
+                        if (value == 19){
+                            return "电信19元200G+100分钟";
+                        }
+                        if (value == 20){
+                            return "19元209G流量+100分钟";
+                        }
+                        if (value == 21){
+                            return "电信6元200M+100分钟";
+                        }
+                        if (value == 22){
+                            return "电信5元200M通用+30费";
+                        }
+                        if (value == 23){
+                            return "20元/月 221G流量+100分";
+                        }
+                        if (value == 24){
+                            return "18元30G通用+120分钟";
+                        }*/
                     }
                 },
                 {
