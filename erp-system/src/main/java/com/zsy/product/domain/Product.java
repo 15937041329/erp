@@ -12,6 +12,7 @@ import org.apache.commons.lang3.builder.ToStringStyle;
  * @date 2020-03-25
  */
 public class Product extends BaseEntity {
+
     private static final long serialVersionUID = 1L;
 
     /**
