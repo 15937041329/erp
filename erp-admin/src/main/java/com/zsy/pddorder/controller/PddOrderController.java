@@ -1,6 +1,16 @@
 package com.zsy.pddorder.controller;
 
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.net.HttpCookie;
 import java.util.List;
+import java.util.Map;
+
+import com.alibaba.fastjson.JSONObject;
+import com.zsy.util.httputil.HttpUtil;
+import com.zsy.util.httputil.RequestParamsToMap;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -19,12 +29,17 @@ import com.zsy.common.core.domain.AjaxResult;
 import com.zsy.common.utils.poi.ExcelUtil;
 import com.zsy.common.core.page.TableDataInfo;
 
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 /**
  * 拼多多Controller
  * 
  * @author wangbingquan
  * @date 2020-06-12
  */
+@Api(tags = "拼多多订单接口")
 @Controller
 @RequestMapping("/pddorder/order")
 public class PddOrderController extends BaseController
@@ -98,6 +113,55 @@ public class PddOrderController extends BaseController
         PddOrder pddOrder = pddOrderService.selectPddOrderById(id);
         mmap.put("pddOrder", pddOrder);
         return prefix + "/edit";
+    }
+
+
+    /**
+     * 获取拼多多手机号和身份证号后六位
+     */
+    @GetMapping("/editipnum/{id}")
+    public String editeditipnum(@PathVariable("id") Long id, ModelMap mmap)
+    {
+        JSONObject params = new JSONObject();
+        PddOrder pddOrder = pddOrderService.selectPddOrderById(id);
+        params.put("pddOrder", pddOrder);
+        String useridnum = null;
+        String usertel = null;
+        useridnum = params.getJSONObject("pddOrder").getString("useridnum");
+        String useridnumSix = useridnum.substring(useridnum.length() - 6);
+        usertel = params.get("usertel").toString();
+        mmap.put("pddOrder", pddOrder);
+        mmap.put("useridnumSix", useridnumSix);
+        mmap.put("usertel", usertel);
+        return prefix + "/edit";
+    }
+    @ApiOperation("拼多多接口")
+    @RequestMapping("queryPhoneNumber")
+    @GetMapping
+    public void queryPhoneNumber(HttpServletRequest request, HttpServletResponse response) throws IOException, IOException {
+        HttpUtil httpUtil = new HttpUtil();
+        Map<String, Object> postList = RequestParamsToMap.getParameterMap(request);
+
+        String httpRet1 = httpUtil.getHtml("http://tel.whaleda.com/order/query", postList, "");
+
+        String phone=postList.get("phone").toString();
+        String idCard=postList.get("id_card").toString();
+        idCard=idCard.substring(idCard.length()-6);
+        httpRet1= httpRet1.replace(" name=\"phone\""," name=\"phone\" value=\""+phone+"\"");
+        httpRet1= httpRet1.replace(" name=\"id_card\""," name=\"id_card\" value=\""+idCard+"\"");
+        httpRet1=  httpRet1.replace("<head>" ,"<head><base href=\"http://tel.whaleda.com/order/\" />");
+        httpRet1=  httpRet1.replace("<form class=\"content\" method=\"post\">" ,"<form class=\"content\" method=\"post\" action=\"http://tel.whaleda.com/order/query\">");
+
+        for (HttpCookie item : httpUtil.getCookieJar().cookieStore) {
+            Cookie userCookie=new Cookie(item.getName(),item.getValue());
+            userCookie.setMaxAge(30*24*60*60);   //存活期为一个月 30*24*60*60
+            userCookie.setPath(item.getPath());
+            response.addCookie(userCookie);
+        }
+        response.setContentType("text/html;charset=utf-8");
+        PrintWriter out = response.getWriter();
+        out.print(httpRet1);
+
     }
 
     /**
