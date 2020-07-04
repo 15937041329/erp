@@ -26,6 +26,10 @@
                                 <input type="text" name="username"/>
                             </li>
                             <li>
+                                <label>年龄：</label>
+                                <input type="text" name="vdef2"/>
+                            </li>
+                            <li>
                                 <label>客户身份证号：</label>
                                 <input type="text" name="useridnum"/>
                             </li>
@@ -68,10 +72,7 @@
                                 <input type="text" name="rlImageUrl"/>
                             </li>
 
-                            <li>
-                                <label>预留字段3：</label>
-                                <input type="text" name="vdef2"/>
-                            </li>
+
                             <li>
                                 <label>预留字段3：</label>
                                 <input type="text" name="vdef3"/>
@@ -240,6 +241,10 @@
                     field: 'username', 
                     title: '客户姓名'
                 },
+                   {
+                field: 'vdef2',
+                    title: '年龄'
+            },
                 {
                     field: 'useridnum', 
                     title: '客户身份证号'
@@ -311,10 +316,7 @@
                     field: 'vdef1', 
                     title: '状态'
                 },/*,
-                {
-                    field: 'vdef2', 
-                    title: '预留字段3'
-                },
+
                 {
                     field: 'vdef3', 
                     title: '预留字段3'
