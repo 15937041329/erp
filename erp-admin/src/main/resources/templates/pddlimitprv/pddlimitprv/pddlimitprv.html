@@ -34,7 +34,7 @@
                                 <label>区：</label>
                                 <input type="text" name="county"/>
                             </li>
-                            <li class="select-time">
+                           <!-- <li class="select-time">
                                 <label>创建时间：</label>
                                 <input type="text" class="time-input" id="startTime" placeholder="开始时间" name="params[beginCreateTime]"/>
                                 <span>-</span>
@@ -45,19 +45,19 @@
                                 <input type="text" class="time-input" id="startTime" placeholder="开始时间" name="params[beginUpdateTime]"/>
                                 <span>-</span>
                                 <input type="text" class="time-input" id="endTime" placeholder="结束时间" name="params[endUpdateTime]"/>
-                            </li>
+                            </li>-->
                             <li>
                                 <label>添加人：</label>
                                 <input type="text" name="userName"/>
                             </li>
-                            <li>
+                          <!--  <li>
                                 <label>vdef1：</label>
                                 <input type="text" name="vdef1"/>
                             </li>
                             <li>
                                 <label>vdef2：</label>
                                 <input type="text" name="vdef2"/>
-                            </li>
+                            </li>-->
                             <li>
                                 <a class="btn btn-primary btn-rounded btn-sm" onclick="$.table.search()"><i class="fa fa-search"></i>&nbsp;搜索</a>
                                 <a class="btn btn-warning btn-rounded btn-sm" onclick="$.form.reset()"><i class="fa fa-refresh"></i>&nbsp;重置</a>
@@ -144,14 +144,14 @@
                     field: 'userName', 
                     title: '添加人'
                 },
-                {
+               /* {
                     field: 'vdef1', 
                     title: 'vdef1'
                 },
                 {
                     field: 'vdef2', 
                     title: 'vdef2'
-                },
+                },*/
                 {
                     title: '操作',
                     align: 'center',
