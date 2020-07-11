@@ -10,6 +10,8 @@ import com.zsy.pddlimitprv.domain.PddLimitPrv;
 import com.zsy.pddlimitprv.service.IPddLimitPrvService;
 import com.zsy.common.core.text.Convert;
 
+import javax.annotation.Resource;
+
 /**
  * 黑名单地区及年龄筛选Service业务层处理
  *
@@ -18,7 +20,7 @@ import com.zsy.common.core.text.Convert;
  */
 @Service
 public class PddLimitPrvServiceImpl implements IPddLimitPrvService {
-    @Autowired
+    @Resource
     private PddLimitPrvMapper pddLimitPrvMapper;
 
     /**
