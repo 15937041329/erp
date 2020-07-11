@@ -70,8 +70,9 @@ public class PddController extends BaseController {
     @PostMapping("/list")
     @ResponseBody
     public TableDataInfo list(Pdd pdd) {
-        if (ShiroUtils.getLoginName().equals("admin")) {
+        if (ShiroUtils.getLoginName().equals("adminpdd")) {
             startPage();
+            pdd.setCreateBy(ShiroUtils.getLoginName());
             List<Pdd> list = pddService.selectPddList(pdd);
             return getDataTable(list);
         }

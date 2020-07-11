@@ -54,6 +54,7 @@ public class PddLimitPrvController extends BaseController
     {
         if (ShiroUtils.getLoginName().equals("adminpdd")) {
             startPage();
+            pddLimitPrv.setCreateBy(ShiroUtils.getLoginName());
             List<PddLimitPrv> list = pddLimitPrvService.selectPddLimitPrvList(pddLimitPrv);
             return getDataTable(list);
         }
