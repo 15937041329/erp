@@ -58,4 +58,7 @@ public interface PddLimitPrvMapper
      * @return 结果
      */
     public int deletePddLimitPrvByIds(String[] ids);
+
+
+
 }

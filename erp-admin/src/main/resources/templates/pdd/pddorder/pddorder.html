@@ -97,6 +97,22 @@
                                 <input type="text" name="vdef5"/>
                             </li>-->
                             <li>
+                                <label>超龄：</label>
+                            <select name="vdef2" th:with="type=${@dict.getType('')}">
+                                <option value="">全部</option>
+                                <option value="超龄">超龄</option>
+                                <option th:each="dict : ${type}" th:text="${dict.dictLabel}" th:value="${dict.dictValue}"></option>
+                            </select>
+                            </li>
+                            <li>
+                                <label>黑名单地区：</label>
+                            <select name="vdef3" th:with="type=${@dict.getType('')}">
+                                <option value="">全部</option>
+                                <option value="不发货地区">不发货地区</option>
+                                <option th:each="dict : ${type}" th:text="${dict.dictLabel}" th:value="${dict.dictValue}"></option>
+                            </select>
+                            </li>
+                            <li>
                                 <a class="btn btn-primary btn-rounded btn-sm" onclick="$.table.search()"><i class="fa fa-search"></i>&nbsp;搜索</a>
                                 <a class="btn btn-warning btn-rounded btn-sm" onclick="$.form.reset()"><i class="fa fa-refresh"></i>&nbsp;重置</a>
                             </li>
