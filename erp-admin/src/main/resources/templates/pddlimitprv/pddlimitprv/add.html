@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org" >
+<head>
+    <th:block th:include="include :: header('新增黑名单地区及年龄筛选')" />
+</head>
+<body class="white-bg">
+    <div class="wrapper wrapper-content animated fadeInRight ibox-content">
+        <form class="form-horizontal m" id="form-pddlimitprv-add">
+            <div class="form-group">    
+                <label class="col-sm-3 control-label">编号：</label>
+                <div class="col-sm-8">
+                    <input name="skuName" class="form-control" type="text">
+                </div>
+            </div>
+            <div class="form-group">    
+                <label class="col-sm-3 control-label">最小年龄：</label>
+                <div class="col-sm-8">
+                    <input name="minAge" class="form-control" type="text">
+                </div>
+            </div>
+            <div class="form-group">    
+                <label class="col-sm-3 control-label">最大年龄：</label>
+                <div class="col-sm-8">
+                    <input name="maxAge" class="form-control" type="text">
+                </div>
+            </div>
+            <div class="form-group">    
+                <label class="col-sm-3 control-label is-required">省：</label>
+                <div class="col-sm-8">
+                    <input name="prv" class="form-control" type="text" required>
+                </div>
+            </div>
+            <div class="form-group">    
+                <label class="col-sm-3 control-label">市：</label>
+                <div class="col-sm-8">
+                    <input name="city" class="form-control" type="text">
+                </div>
+            </div>
+            <div class="form-group">    
+                <label class="col-sm-3 control-label">区：</label>
+                <div class="col-sm-8">
+                    <input name="county" class="form-control" type="text">
+                </div>
+            </div>
+            <div class="form-group">    
+                <label class="col-sm-3 control-label">添加人：</label>
+                <div class="col-sm-8">
+                    <input name="userName" class="form-control" type="text">
+                </div>
+            </div>
+            <div class="form-group">    
+                <label class="col-sm-3 control-label">vdef1：</label>
+                <div class="col-sm-8">
+                    <input name="vdef1" class="form-control" type="text">
+                </div>
+            </div>
+            <div class="form-group">    
+                <label class="col-sm-3 control-label">vdef2：</label>
+                <div class="col-sm-8">
+                    <input name="vdef2" class="form-control" type="text">
+                </div>
+            </div>
+        </form>
+    </div>
+    <th:block th:include="include :: footer" />
+    <script type="text/javascript">
+        var prefix = ctx + "pddlimitprv/pddlimitprv"
+        $("#form-pddlimitprv-add").validate({
+            focusCleanup: true
+        });
+
+        function submitHandler() {
+            if ($.validate.form()) {
+                $.operate.save(prefix + "/add", $('#form-pddlimitprv-add').serialize());
+            }
+        }
+    </script>
+</body>
+</html>

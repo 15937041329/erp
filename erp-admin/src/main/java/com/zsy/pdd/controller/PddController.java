@@ -5,9 +5,14 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import cn.hutool.core.convert.Convert;
+import cn.hutool.core.util.IdcardUtil;
+import cn.hutool.core.util.StrUtil;
 import com.alibaba.druid.util.StringUtils;
 import com.zsy.framework.util.ShiroUtils;
 import com.zsy.henan.domain.HenanOrder;
+import com.zsy.pddlimitprv.domain.PddLimitPrv;
+import com.zsy.pddlimitprv.mapper.PddLimitPrvMapper;
 import com.zsy.system.domain.SysUser;
 import com.zsy.util.httputil.TrustAllManager;
 import io.swagger.annotations.ApiOperation;
@@ -31,6 +36,8 @@ import com.zsy.common.utils.poi.ExcelUtil;
 import com.zsy.common.core.page.TableDataInfo;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.annotation.Resource;
+
 /**
  * 拼多多表格导入Controller
  *
@@ -44,6 +51,8 @@ public class PddController extends BaseController {
 
     @Autowired
     private IPddService pddService;
+    @Resource
+    private PddLimitPrvMapper pddLimitPrvMapper;
 
     @Autowired
 
@@ -72,19 +81,41 @@ public class PddController extends BaseController {
             pdd.setCreateBy(ShiroUtils.getLoginName());
             List<Pdd> list = pddService.selectPddList(pdd);
             return getDataTable(list);
-
         }
-        if (ShiroUtils.getLoginName().equals("wangenhe")) {
-            pdd.setVdef5("wangenhe");
-
-            if (pdd.getCommodityName().equals("电信14元200G流量+100分钟") && pdd.getCommodityName().equals("电信19元200G流量+100分")) {
-            }
+        if (ShiroUtils.getLoginName().equals("zhangyu")) {
+            pdd.setVdef5("zhangyu");
             startPage();
             pdd.setCreateBy(ShiroUtils.getLoginName());
             List<Pdd> list = pddService.selectPddList(pdd);
             return getDataTable(list);
-
-        } else {
+        }  if (ShiroUtils.getLoginName().equals("zhuchenglong")) {
+            pdd.setVdef5("zhuchenglong");
+            startPage();
+            pdd.setCreateBy(ShiroUtils.getLoginName());
+            List<Pdd> list = pddService.selectPddList(pdd);
+            return getDataTable(list);
+        }
+        if (ShiroUtils.getLoginName().equals("maosujuan")) {
+            pdd.setVdef5("maosujuan");
+            startPage();
+            pdd.setCreateBy(ShiroUtils.getLoginName());
+            List<Pdd> list = pddService.selectPddList(pdd);
+            return getDataTable(list);
+        }
+        if (ShiroUtils.getLoginName().equals("maomengjuan")) {
+            pdd.setVdef5("maomengjuan");
+            startPage();
+            pdd.setCreateBy(ShiroUtils.getLoginName());
+            List<Pdd> list = pddService.selectPddList(pdd);
+            return getDataTable(list);
+        } if (ShiroUtils.getLoginName().equals("changchang")) {
+            pdd.setVdef5("changchang");
+            startPage();
+            pdd.setCreateBy(ShiroUtils.getLoginName());
+            List<Pdd> list = pddService.selectPddList(pdd);
+            return getDataTable(list);
+        }
+        else {
             return getDataTable(null);
         }
     }
@@ -164,62 +195,76 @@ public class PddController extends BaseController {
         String operName = ShiroUtils.getSysUser().getLoginName();
         List<Pdd> pddList = util.importExcel(file.getInputStream());
         for (Pdd pdd : pddList) {
-            String limitPrvCityStr = "";
-            if (pdd.getCommoditySpec().contains("电信19元200G流量+100分")) {
-                limitPrvCityStr = "新疆~西藏~广西，宾阳~福建，龙岩~云南，普洱~广东，茂名，电白~广东，湛江，廉江~云南，德宏傣族景颇族自治州~云南，临沧~云南，西双版纳傣族自治州";
-            } else if (pdd.getCommoditySpec().contains("电信14元200G流量+100分钟")) {
-                limitPrvCityStr = "新疆~西藏~广西，宾阳~福建，龙岩~云南，普洱~广东，茂名~广东，电白~云南，德宏傣族景颇族自治州~云南，临沧~云南，西双版纳傣族自治州";
-            }else if (pdd.getCommoditySpec().contains("顺意卡29元81G全国流量+100分")) {
-                limitPrvCityStr = "广东,江门~广东,阳江~广东,东莞~广东,佛山~广东,肇庆~广东,茂名~广东,湛江";
+            if (StrUtil.isEmpty(pdd.getVdef1())) {
+                return AjaxResult.error("Vdef1为空，请检查！");
             }
-            else {
-                continue;
+            PddLimitPrv pddLimitPrvQuery = new PddLimitPrv();
+            pddLimitPrvQuery.setSkuName(pdd.getVdef1());
+            List<PddLimitPrv> pddLimitPrvList = pddLimitPrvMapper.selectPddLimitPrvList(pddLimitPrvQuery);
+            if (pddLimitPrvList.size() == 0) {
+                return AjaxResult.error("过滤规则检测失败，请检查！");
             }
-            boolean limitFlag = false;
-            limitPrvCityStr = limitPrvCityStr.replace("，", ",");
-            String[] rows = limitPrvCityStr.split("~");
-            for (String item : rows) {
-                String[] itemRows = item.split(",");
-                if (itemRows.length == 1) {
-                    String prvName = itemRows[0];
-                    if (pdd.getProvince().contains(prvName)) {
-                        limitFlag = true;
-                        break;
-                    }
-                } else if (itemRows.length == 2) {
-                    String prvName = itemRows[0];
-                    String cityName = itemRows[1];
-                    if (pdd.getProvince().contains(prvName) && pdd.getCity().contains(cityName)) {
-                        limitFlag = true;
+            IdcardUtil.getAgeByIdCard(pdd.getIp());
+        }
+        for (Pdd pdd : pddList) {
+            PddLimitPrv pddLimitPrvQuery = new PddLimitPrv();
+            pddLimitPrvQuery.setSkuName(pdd.getVdef1());
+            List<PddLimitPrv> pddLimitPrvList = pddLimitPrvMapper.selectPddLimitPrvList(pddLimitPrvQuery);
+            if (pddLimitPrvList.size() == 0) {
+                return AjaxResult.error("过滤规则检测失败，请检查！");
+            }
+            boolean limitPrvFlag = false;
+            boolean limitAgeFlag = false;
+            int age = IdcardUtil.getAgeByIdCard(pdd.getIp());
+            for (PddLimitPrv pddLimitPrv : pddLimitPrvList) {
+                if (age < pddLimitPrv.getMinAge() || age > pddLimitPrv.getMaxAge()) {
+                    limitAgeFlag = true;
+                    break;
+                }
+                if (!StrUtil.isEmpty(pddLimitPrv.getPrv()) &&
+                        !StrUtil.isEmpty(pddLimitPrv.getCity()) &&
+                        !StrUtil.isEmpty(pddLimitPrv.getCounty())) {
+                    if (pdd.getProvince().contains(pddLimitPrv.getPrv()) &&
+                            pdd.getCity().contains(pddLimitPrv.getCity()) &&
+                            pdd.getCounty().contains(pddLimitPrv.getCounty())) {
+                        limitPrvFlag = true;
                         break;
                     }
                 }
-                else if (itemRows.length == 3) {
-                    String prvName = itemRows[0];
-                    String cityName = itemRows[1];
-                    String countyName = itemRows[2];
-                    if (pdd.getProvince().contains(prvName) && pdd.getCity().contains(cityName)&& pdd.getCounty().contains(countyName)) {
-                        limitFlag = true;
+                if (!StrUtil.isEmpty(pddLimitPrv.getPrv()) &&
+                        !StrUtil.isEmpty(pddLimitPrv.getCity())) {
+                    if (pdd.getProvince().contains(pddLimitPrv.getPrv()) &&
+                            pdd.getCity().contains(pddLimitPrv.getCity())) {
+                        limitPrvFlag = true;
+                        break;
+                    }
+                }
+                if (!StrUtil.isEmpty(pddLimitPrv.getPrv())) {
+                    if (pdd.getProvince().contains(pddLimitPrv.getPrv())) {
+                        limitPrvFlag = true;
                         break;
                     }
                 }
             }
-            if (!limitFlag) {
+
+            if (!limitPrvFlag && !limitAgeFlag) {
                 continue;
             }
 
+            if (limitPrvFlag) {
+                pdd.setVdef3("不发货地区");
+            }
+            if (limitAgeFlag) {
+                pdd.setVdef2("超龄");
+            }
             String ip = pdd.getIp();
-            pdd.setVdef4(intToString(getAgeByPsptNo(ip)));
-            pdd.setVdef3("不发货地区");
+            pdd.setVdef4(Convert.toStr(IdcardUtil.getAgeByIdCard(pdd.getIp())));
+
             pddService.insertPdd(pdd);
         }
         return AjaxResult.success("SUCCESS");
     }
 
-    public static String intToString(int value) {
-        Integer integer = new Integer(value);
-        return integer.toString();
-    }
 
     /**
      * 根据身份证号码计算年龄
@@ -230,38 +275,14 @@ public class PddController extends BaseController {
     @ApiOperation("计算年龄")
     @PostMapping("/getAgeByPsptNo")
     public int getAgeByPsptNo(String psptNo) {
-        if (StringUtils.isEmpty(psptNo)) {
+        try {
+            return IdcardUtil.getAgeByIdCard(psptNo);
+        } catch (Exception e) {
+            e.printStackTrace();
             return 0;
         }
-        String birthDay = psptNo.substring(6, 14);
-        String time = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
-        String yearStr = time.split("-")[0];
-        String monthStr = time.split("-")[1];
-        String dayStr = time.split("-")[2];
-        String yearBirthStr = birthDay.substring(0, 4);
-        String monthBirthStr = birthDay.substring(4, 6);
-        String dayBirthStr = birthDay.substring(6);
-        int year = Integer.valueOf(yearStr);
-        int yearBirth = Integer.valueOf(yearBirthStr);
-        if (year - yearBirth <= 0) {
-            return 0;
-        }
-        int age = year - yearBirth;
-        int month = Integer.valueOf(monthStr);
-        int monthBirth = Integer.valueOf(monthBirthStr);
-        if (month - monthBirth > 0) {
-            return age;
-        }
-        if (month - monthBirth < 0) {
-            return --age;
-        }
-        int day = Integer.valueOf(dayStr);
-        int dayBirth = Integer.valueOf(dayBirthStr);
-        if (day - dayBirth >= 0) {
-            return age;
-        }
-        return --age;
     }
+
 
     /**
      * 导出微客项目模板

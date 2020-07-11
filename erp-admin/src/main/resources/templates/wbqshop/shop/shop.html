@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org" xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
+<head>
+    <th:block th:include="include :: header('wbqshop列表')" />
+</head>
+<body class="gray-bg">
+     <div class="container-div">
+        <div class="row">
+            <div class="col-sm-12 search-collapse">
+                <form id="formId">
+                    <div class="select-list">
+                        <ul>
+                            <li>
+                                <label>商品名称：</label>
+                                <input type="text" name="name"/>
+                            </li>
+                            <li>
+                                <label>价格：</label>
+                                <input type="text" name="price"/>
+                            </li>
+                            <li>
+                                <label>折扣价：</label>
+                                <input type="text" name="priceother"/>
+                            </li>
+                            <li>
+                                <label>运费：</label>
+                                <input type="text" name="frieight"/>
+                            </li>
+                            <li>
+                                <label>评分：</label>
+                                <input type="text" name="comments"/>
+                            </li>
+                            <li>
+                                <label>已售：</label>
+                                <input type="text" name="sold"/>
+                            </li>
+                            <li>
+                                <label>商品主图：</label>
+                                <input type="text" name="maingraph"/>
+                            </li>
+                            <li>
+                                <label>访问量：</label>
+                                <input type="text" name="visits"/>
+                            </li>
+                            <li>
+                                <label>商品详情：</label>
+                                <input type="text" name="commodityDetails"/>
+                            </li>
+                            <li>
+                                <label>活动剩余时间：</label>
+                                <input type="text" name="remainingTime"/>
+                            </li>
+                            <li>
+                                <label>商品副图1：</label>
+                                <input type="text" name="pictureone"/>
+                            </li>
+                            <li>
+                                <label>商品副图2：</label>
+                                <input type="text" name="picturetwo"/>
+                            </li>
+                            <li>
+                                <label>商品副图3：</label>
+                                <input type="text" name="picturethree"/>
+                            </li>
+                            <li>
+                                <label>商品副图4：</label>
+                                <input type="text" name="picturefour"/>
+                            </li>
+                            <li>
+                                <label>商品副图5：</label>
+                                <input type="text" name="picturefive"/>
+                            </li>
+                            <li>
+                                <label>商品副图6：</label>
+                                <input type="text" name="picturesix"/>
+                            </li>
+                            <li>
+                                <label>vdef1：</label>
+                                <input type="text" name="vdef1"/>
+                            </li>
+                            <li>
+                                <label>vdef2：</label>
+                                <input type="text" name="vdef2"/>
+                            </li>
+                            <li>
+                                <label>vdef3：</label>
+                                <input type="text" name="vdef3"/>
+                            </li>
+                            <li>
+                                <label>vdef4：</label>
+                                <input type="text" name="vdef4"/>
+                            </li>
+                            <li>
+                                <label>vdef5：</label>
+                                <input type="text" name="vdef5"/>
+                            </li>
+                            <li>
+                                <label>vdef6：</label>
+                                <input type="text" name="vdef6"/>
+                            </li>
+                            <li>
+                                <a class="btn btn-primary btn-rounded btn-sm" onclick="$.table.search()"><i class="fa fa-search"></i>&nbsp;搜索</a>
+                                <a class="btn btn-warning btn-rounded btn-sm" onclick="$.form.reset()"><i class="fa fa-refresh"></i>&nbsp;重置</a>
+                            </li>
+                        </ul>
+                    </div>
+                </form>
+            </div>
+
+            <div class="btn-group-sm" id="toolbar" role="group">
+                <a class="btn btn-success" onclick="$.operate.add()" shiro:hasPermission="wbqshop:shop:add">
+                    <i class="fa fa-plus"></i> 添加
+                </a>
+                <a class="btn btn-primary single disabled" onclick="$.operate.edit()" shiro:hasPermission="wbqshop:shop:edit">
+                    <i class="fa fa-edit"></i> 修改
+                </a>
+                <a class="btn btn-danger multiple disabled" onclick="$.operate.removeAll()" shiro:hasPermission="wbqshop:shop:remove">
+                    <i class="fa fa-remove"></i> 删除
+                </a>
+                <a class="btn btn-warning" onclick="$.table.exportExcel()" shiro:hasPermission="wbqshop:shop:export">
+                    <i class="fa fa-download"></i> 导出
+                </a>
+            </div>
+            <div class="col-sm-12 select-table table-striped">
+                <table id="bootstrap-table"></table>
+            </div>
+        </div>
+    </div>
+    <th:block th:include="include :: footer" />
+    <script th:inline="javascript">
+        var editFlag = [[${@permission.hasPermi('wbqshop:shop:edit')}]];
+        var removeFlag = [[${@permission.hasPermi('wbqshop:shop:remove')}]];
+        var prefix = ctx + "wbqshop/shop";
+
+        $(function() {
+            var options = {
+                url: prefix + "/list",
+                createUrl: prefix + "/add",
+                updateUrl: prefix + "/edit/{id}",
+                removeUrl: prefix + "/remove",
+                exportUrl: prefix + "/export",
+                modalName: "wbqshop",
+                columns: [{
+                    checkbox: true
+                },
+                {
+                    field: 'id', 
+                    title: 'id',
+                    visible: false
+                },
+                {
+                    field: 'name', 
+                    title: '商品名称'
+                },
+                {
+                    field: 'price', 
+                    title: '价格'
+                },
+                {
+                    field: 'priceother', 
+                    title: '折扣价'
+                },
+                {
+                    field: 'frieight', 
+                    title: '运费'
+                },
+                {
+                    field: 'comments', 
+                    title: '评分'
+                },
+                {
+                    field: 'sold', 
+                    title: '已售'
+                },
+                {
+                    field: 'maingraph', 
+                    title: '商品主图'
+                },
+                {
+                    field: 'visits', 
+                    title: '访问量'
+                },
+                {
+                    field: 'commodityDetails', 
+                    title: '商品详情'
+                },
+                {
+                    field: 'remainingTime', 
+                    title: '活动剩余时间'
+                },
+                {
+                    field: 'pictureone', 
+                    title: '商品副图1'
+                },
+                {
+                    field: 'picturetwo', 
+                    title: '商品副图2'
+                },
+                {
+                    field: 'picturethree', 
+                    title: '商品副图3'
+                },
+                {
+                    field: 'picturefour', 
+                    title: '商品副图4'
+                },
+                {
+                    field: 'picturefive', 
+                    title: '商品副图5'
+                },
+                {
+                    field: 'picturesix', 
+                    title: '商品副图6'
+                },
+                {
+                    field: 'vdef1', 
+                    title: 'vdef1'
+                },
+                {
+                    field: 'vdef2', 
+                    title: 'vdef2'
+                },
+                {
+                    field: 'vdef3', 
+                    title: 'vdef3'
+                },
+                {
+                    field: 'vdef4', 
+                    title: 'vdef4'
+                },
+                {
+                    field: 'vdef5', 
+                    title: 'vdef5'
+                },
+                {
+                    field: 'vdef6', 
+                    title: 'vdef6'
+                },
+                {
+                    title: '操作',
+                    align: 'center',
+                    formatter: function(value, row, index) {
+                        var actions = [];
+                        actions.push('<a class="btn btn-success btn-xs ' + editFlag + '" href="javascript:void(0)" onclick="$.operate.edit(\'' + row.id + '\')"><i class="fa fa-edit"></i>编辑</a> ');
+                        actions.push('<a class="btn btn-danger btn-xs ' + removeFlag + '" href="javascript:void(0)" onclick="$.operate.remove(\'' + row.id + '\')"><i class="fa fa-remove"></i>删除</a>');
+                        return actions.join('');
+                    }
+                }]
+            };
+            $.table.init(options);
+        });
+    </script>
+</body>
+</html>
