@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zsy.pdd.mapper.PddMapper">
+    <resultMap type="Pdd" id="PddResult">
+        <result property="id"    column="id"    />
+        <result property="commodityName"    column="commodity_name"    />
+        <result property="orderId"    column="order_id"    />
+        <result property="orderStates"    column="order_states"    />
+        <result property="payMoney"    column="pay_money"    />
+        <result property="successTime"    column="success_time"    />
+        <result property="commoditySpec"    column="commodity_spec"    />
+        <result property="businessNotes"    column="business_notes"    />
+        <result property="consignee"    column="consignee"    />
+        <result property="phone"    column="phone"    />
+        <result property="province"    column="province"    />
+        <result property="city"    column="city"    />
+        <result property="county"    column="county"    />
+        <result property="address"    column="address"    />
+        <result property="name"    column="name"    />
+        <result property="ip"    column="ip"    />
+        <result property="roomId"    column="room_id"    />
+        <result property="vdef1"    column="vdef1"    />
+        <result property="vdef2"    column="vdef2"    />
+        <result property="vdef3"    column="vdef3"    />
+        <result property="vdef4"    column="vdef4"    />
+        <result property="vdef5"    column="vdef5"    />
+    </resultMap>
+
+    <sql id="selectPddVo">
+        select id, commodity_name, order_id, order_states, pay_money, success_time, commodity_spec, business_notes, consignee, phone, province, city, county, address, name, ip, room_id, vdef1, vdef2, vdef3, vdef4, vdef5 from pdd
+    </sql>
+
+    <select id="selectPddList" parameterType="Pdd" resultMap="PddResult">
+        <include refid="selectPddVo"/>
+        <where>  
+            <if test="commodityName != null  and commodityName != ''"> and commodity_name like concat('%', #{commodityName}, '%')</if>
+            <if test="orderId != null  and orderId != ''"> and order_id = #{orderId}</if>
+            <if test="orderStates != null  and orderStates != ''"> and order_states = #{orderStates}</if>
+            <if test="payMoney != null  and payMoney != ''"> and pay_money = #{payMoney}</if>
+            <if test="successTime != null "> and success_time = #{successTime}</if>
+            <if test="commoditySpec != null  and commoditySpec != ''"> and commodity_spec = #{commoditySpec}</if>
+            <if test="businessNotes != null  and businessNotes != ''"> and business_notes = #{businessNotes}</if>
+            <if test="consignee != null  and consignee != ''"> and consignee = #{consignee}</if>
+            <if test="phone != null  and phone != ''"> and phone = #{phone}</if>
+            <if test="province != null  and province != ''"> and province = #{province}</if>
+            <if test="city != null  and city != ''"> and city = #{city}</if>
+            <if test="county != null  and county != ''"> and county = #{county}</if>
+            <if test="address != null  and address != ''"> and address = #{address}</if>
+            <if test="name != null  and name != ''"> and name like concat('%', #{name}, '%')</if>
+            <if test="ip != null  and ip != ''"> and ip = #{ip}</if>
+            <if test="roomId != null  and roomId != ''"> and room_id = #{roomId}</if>
+            <if test="vdef1 != null  and vdef1 != ''"> and vdef1 = #{vdef1}</if>
+            <if test="vdef2 != null  and vdef2 != ''"> and vdef2 = #{vdef2}</if>
+            <if test="vdef3 != null  and vdef3 != ''"> and vdef3 = #{vdef3}</if>
+            <if test="vdef4 != null  and vdef4 != ''"> and vdef4 = #{vdef4}</if>
+            <if test="vdef5 != null  and vdef5 != ''"> and vdef5 = #{vdef5}</if>
+        </where>
+    </select>
+    
+    <select id="selectPddById" parameterType="Long" resultMap="PddResult">
+        <include refid="selectPddVo"/>
+        where id = #{id}
+    </select>
+        
+    <insert id="insertPdd" parameterType="Pdd">
+        insert into pdd
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null ">id,</if>
+            <if test="commodityName != null  and commodityName != ''">commodity_name,</if>
+            <if test="orderId != null  and orderId != ''">order_id,</if>
+            <if test="orderStates != null  and orderStates != ''">order_states,</if>
+            <if test="payMoney != null  and payMoney != ''">pay_money,</if>
+            <if test="successTime != null ">success_time,</if>
+            <if test="commoditySpec != null  and commoditySpec != ''">commodity_spec,</if>
+            <if test="businessNotes != null  and businessNotes != ''">business_notes,</if>
+            <if test="consignee != null  and consignee != ''">consignee,</if>
+            <if test="phone != null  and phone != ''">phone,</if>
+            <if test="province != null  and province != ''">province,</if>
+            <if test="city != null  and city != ''">city,</if>
+            <if test="county != null  and county != ''">county,</if>
+            <if test="address != null  and address != ''">address,</if>
+            <if test="name != null  and name != ''">name,</if>
+            <if test="ip != null  and ip != ''">ip,</if>
+            <if test="roomId != null  and roomId != ''">room_id,</if>
+            <if test="vdef1 != null  and vdef1 != ''">vdef1,</if>
+            <if test="vdef2 != null  and vdef2 != ''">vdef2,</if>
+            <if test="vdef3 != null  and vdef3 != ''">vdef3,</if>
+            <if test="vdef4 != null  and vdef4 != ''">vdef4,</if>
+            <if test="vdef5 != null  and vdef5 != ''">vdef5,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null ">#{id},</if>
+            <if test="commodityName != null  and commodityName != ''">#{commodityName},</if>
+            <if test="orderId != null  and orderId != ''">#{orderId},</if>
+            <if test="orderStates != null  and orderStates != ''">#{orderStates},</if>
+            <if test="payMoney != null  and payMoney != ''">#{payMoney},</if>
+            <if test="successTime != null ">#{successTime},</if>
+            <if test="commoditySpec != null  and commoditySpec != ''">#{commoditySpec},</if>
+            <if test="businessNotes != null  and businessNotes != ''">#{businessNotes},</if>
+            <if test="consignee != null  and consignee != ''">#{consignee},</if>
+            <if test="phone != null  and phone != ''">#{phone},</if>
+            <if test="province != null  and province != ''">#{province},</if>
+            <if test="city != null  and city != ''">#{city},</if>
+            <if test="county != null  and county != ''">#{county},</if>
+            <if test="address != null  and address != ''">#{address},</if>
+            <if test="name != null  and name != ''">#{name},</if>
+            <if test="ip != null  and ip != ''">#{ip},</if>
+            <if test="roomId != null  and roomId != ''">#{roomId},</if>
+            <if test="vdef1 != null  and vdef1 != ''">#{vdef1},</if>
+            <if test="vdef2 != null  and vdef2 != ''">#{vdef2},</if>
+            <if test="vdef3 != null  and vdef3 != ''">#{vdef3},</if>
+            <if test="vdef4 != null  and vdef4 != ''">#{vdef4},</if>
+            <if test="vdef5 != null  and vdef5 != ''">#{vdef5},</if>
+         </trim>
+    </insert>
+
+    <update id="updatePdd" parameterType="Pdd">
+        update pdd
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="commodityName != null  and commodityName != ''">commodity_name = #{commodityName},</if>
+            <if test="orderId != null  and orderId != ''">order_id = #{orderId},</if>
+            <if test="orderStates != null  and orderStates != ''">order_states = #{orderStates},</if>
+            <if test="payMoney != null  and payMoney != ''">pay_money = #{payMoney},</if>
+            <if test="successTime != null ">success_time = #{successTime},</if>
+            <if test="commoditySpec != null  and commoditySpec != ''">commodity_spec = #{commoditySpec},</if>
+            <if test="businessNotes != null  and businessNotes != ''">business_notes = #{businessNotes},</if>
+            <if test="consignee != null  and consignee != ''">consignee = #{consignee},</if>
+            <if test="phone != null  and phone != ''">phone = #{phone},</if>
+            <if test="province != null  and province != ''">province = #{province},</if>
+            <if test="city != null  and city != ''">city = #{city},</if>
+            <if test="county != null  and county != ''">county = #{county},</if>
+            <if test="address != null  and address != ''">address = #{address},</if>
+            <if test="name != null  and name != ''">name = #{name},</if>
+            <if test="ip != null  and ip != ''">ip = #{ip},</if>
+            <if test="roomId != null  and roomId != ''">room_id = #{roomId},</if>
+            <if test="vdef1 != null  and vdef1 != ''">vdef1 = #{vdef1},</if>
+            <if test="vdef2 != null  and vdef2 != ''">vdef2 = #{vdef2},</if>
+            <if test="vdef3 != null  and vdef3 != ''">vdef3 = #{vdef3},</if>
+            <if test="vdef4 != null  and vdef4 != ''">vdef4 = #{vdef4},</if>
+            <if test="vdef5 != null  and vdef5 != ''">vdef5 = #{vdef5},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deletePddById" parameterType="Long">
+        delete from pdd where id = #{id}
+    </delete>
+
+    <delete id="deletePddByIds" parameterType="String">
+        delete from pdd where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+    
+</mapper>
