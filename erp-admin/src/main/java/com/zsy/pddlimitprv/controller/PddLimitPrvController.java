@@ -1,6 +1,9 @@
 package com.zsy.pddlimitprv.controller;
 
 import java.util.List;
+
+import com.zsy.framework.util.ShiroUtils;
+import com.zsy.pdd.domain.Pdd;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -49,9 +52,55 @@ public class PddLimitPrvController extends BaseController
     @ResponseBody
     public TableDataInfo list(PddLimitPrv pddLimitPrv)
     {
+        if (ShiroUtils.getLoginName().equals("admin")) {
+            startPage();
+            List<PddLimitPrv> list = pddLimitPrvService.selectPddLimitPrvList(pddLimitPrv);
+            return getDataTable(list);
+        }
+        if (ShiroUtils.getLoginName().equals("xuyiming")) {
+            pddLimitPrv.setUserName("xuyiming");
+            startPage();
+            pddLimitPrv.setCreateBy(ShiroUtils.getLoginName());
+            List<PddLimitPrv> list = pddLimitPrvService.selectPddLimitPrvList(pddLimitPrv);
+            return getDataTable(list);
+        }
+        if (ShiroUtils.getLoginName().equals("zhangyu")) {
+            pddLimitPrv.setUserName("zhangyu");
+            startPage();
+            pddLimitPrv.setCreateBy(ShiroUtils.getLoginName());
+            List<PddLimitPrv> list = pddLimitPrvService.selectPddLimitPrvList(pddLimitPrv);
+            return getDataTable(list);
+        }  if (ShiroUtils.getLoginName().equals("zhuchenglong")) {
+        pddLimitPrv.setUserName("zhuchenglong");
         startPage();
+        pddLimitPrv.setCreateBy(ShiroUtils.getLoginName());
         List<PddLimitPrv> list = pddLimitPrvService.selectPddLimitPrvList(pddLimitPrv);
         return getDataTable(list);
+    }
+        if (ShiroUtils.getLoginName().equals("maosujuan")) {
+            pddLimitPrv.setUserName("maosujuan");
+            startPage();
+            pddLimitPrv.setCreateBy(ShiroUtils.getLoginName());
+            List<PddLimitPrv> list = pddLimitPrvService.selectPddLimitPrvList(pddLimitPrv);
+            return getDataTable(list);
+        }
+        if (ShiroUtils.getLoginName().equals("maomengjuan")) {
+            pddLimitPrv.setUserName("maomengjuan");
+            startPage();
+            pddLimitPrv.setCreateBy(ShiroUtils.getLoginName());
+            List<PddLimitPrv> list = pddLimitPrvService.selectPddLimitPrvList(pddLimitPrv);
+            return getDataTable(list);
+        } if (ShiroUtils.getLoginName().equals("changchang")) {
+        pddLimitPrv.setUserName("changchang");
+        startPage();
+        pddLimitPrv.setCreateBy(ShiroUtils.getLoginName());
+        List<PddLimitPrv> list = pddLimitPrvService.selectPddLimitPrvList(pddLimitPrv);
+        return getDataTable(list);
+    }
+    else {
+        return getDataTable(null);
+    }
+
     }
 
     /**
