@@ -10,18 +10,18 @@
                 <form id="formId">
                     <div class="select-list">
                         <ul>
-                            <li>
+                         <!--   <li>
                                 <label>商品：</label>
                                 <input type="text" name="commodityName"/>
-                            </li>
+                            </li>-->
                             <li>
                                 <label>订单编号：</label>
                                 <input type="text" name="orderId"/>
                             </li>
-                            <li>
+                         <!--   <li>
                                 <label>订单状态：</label>
                                 <input type="text" name="orderStates"/>
-                            </li>
+                            </li>-->
                          <!--   <li>
                                 <label>商家实收金额(元)：</label>
                                 <input type="text" name="payMoney"/>
@@ -48,7 +48,7 @@
                                 <label>手机：</label>
                                 <input type="text" name="phone"/>
                             </li>
-                            <li>
+                        <!--    <li>
                                 <label>省：</label>
                                 <input type="text" name="province"/>
                             </li>
@@ -63,7 +63,7 @@
                             <li>
                                 <label>详细地址：</label>
                                 <input type="text" name="address"/>
-                            </li>
+                            </li>-->
                             <li>
                                 <label>身份证姓名：</label>
                                 <input type="text" name="name"/>
@@ -106,18 +106,18 @@
             </div>
 
             <div class="btn-group-sm" id="toolbar" role="group">
-                <a class="btn btn-success" onclick="$.operate.add()" shiro:hasPermission="pdd:pddorder:add">
+           <!--     <a class="btn btn-success" onclick="$.operate.add()" shiro:hasPermission="pdd:pddorder:add">
                     <i class="fa fa-plus"></i> 添加
                 </a>
                 <a class="btn btn-primary single disabled" onclick="$.operate.edit()" shiro:hasPermission="pdd:pddorder:edit">
                     <i class="fa fa-edit"></i> 修改
-                </a>
+                </a>-->
                 <a class="btn btn-danger multiple disabled" onclick="$.operate.removeAll()" shiro:hasPermission="pdd:pddorder:remove">
                     <i class="fa fa-remove"></i> 删除
                 </a>
-                <a class="btn btn-warning" onclick="$.table.exportExcel()" shiro:hasPermission="pdd:pddorder:export">
+            <!--    <a class="btn btn-warning" onclick="$.table.exportExcel()" shiro:hasPermission="pdd:pddorder:export">
                     <i class="fa fa-download"></i> 导出
-                </a>
+                </a>-->
                 <a class="btn btn-info" onclick="$.table.importExcel()">
                     <i class="fa fa-upload"></i> 导入
                 </a>
@@ -165,10 +165,10 @@
                     title: 'id',
                     visible: false
                 },
-                {
+               /* {
                     field: 'commodityName', 
                     title: '商品'
-                },
+                },*/
                 {
                     field: 'orderId', 
                     title: '订单编号'
@@ -177,22 +177,22 @@
                     field: 'orderStates', 
                     title: '订单状态'
                 },
-                {
+              /*  {
                     field: 'payMoney', 
                     title: '商家实收金额(元)'
-                },
-                {
+                },*/
+            /*    {
                     field: 'successTime', 
                     title: '拼单成功时间'
-                },
-                {
+                },*/
+             /*   {
                     field: 'commoditySpec', 
                     title: '商品规格'
-                },
-                {
+                },*/
+             /* {
                     field: 'businessNotes', 
                     title: '商家备注'
-                },
+                },*/
                 {
                     field: 'consignee', 
                     title: '收货人'
@@ -232,11 +232,12 @@
                 /*{
                     field: 'vdef1', 
                     title: 'vdef1'
-                },
+                },*/
                 {
                     field: 'vdef2', 
-                    title: 'vdef2'
-                },*/
+                    title: '是否超龄'
+
+                },
                 {
                     field: 'vdef3', 
                     title: '黑名单地区'

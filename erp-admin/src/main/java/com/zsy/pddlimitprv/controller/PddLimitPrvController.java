@@ -52,57 +52,15 @@ public class PddLimitPrvController extends BaseController
     @ResponseBody
     public TableDataInfo list(PddLimitPrv pddLimitPrv)
     {
-        if (ShiroUtils.getLoginName().equals("adminpdd")) {
+
             startPage();
             pddLimitPrv.setCreateBy(ShiroUtils.getLoginName());
             List<PddLimitPrv> list = pddLimitPrvService.selectPddLimitPrvList(pddLimitPrv);
             return getDataTable(list);
-        }
-        if (ShiroUtils.getLoginName().equals("xuyiming")) {
-            pddLimitPrv.setUserName("徐义明");
-            startPage();
-            pddLimitPrv.setCreateBy(ShiroUtils.getLoginName());
-            List<PddLimitPrv> list = pddLimitPrvService.selectPddLimitPrvList(pddLimitPrv);
-            return getDataTable(list);
-        }
-        if (ShiroUtils.getLoginName().equals("zhangyu")) {
-            pddLimitPrv.setUserName("张雨");
-            startPage();
-            pddLimitPrv.setCreateBy(ShiroUtils.getLoginName());
-            List<PddLimitPrv> list = pddLimitPrvService.selectPddLimitPrvList(pddLimitPrv);
-            return getDataTable(list);
-        }  if (ShiroUtils.getLoginName().equals("zhuchenglong")) {
-        pddLimitPrv.setUserName("朱成龙");
-        startPage();
-        pddLimitPrv.setCreateBy(ShiroUtils.getLoginName());
-        List<PddLimitPrv> list = pddLimitPrvService.selectPddLimitPrvList(pddLimitPrv);
-        return getDataTable(list);
-    }
-        if (ShiroUtils.getLoginName().equals("maosujuan")) {
-            pddLimitPrv.setUserName("毛素娟");
-            startPage();
-            pddLimitPrv.setCreateBy(ShiroUtils.getLoginName());
-            List<PddLimitPrv> list = pddLimitPrvService.selectPddLimitPrvList(pddLimitPrv);
-            return getDataTable(list);
-        }
-        if (ShiroUtils.getLoginName().equals("maomengjuan")) {
-            pddLimitPrv.setUserName("毛梦娟");
-            startPage();
-            pddLimitPrv.setCreateBy(ShiroUtils.getLoginName());
-            List<PddLimitPrv> list = pddLimitPrvService.selectPddLimitPrvList(pddLimitPrv);
-            return getDataTable(list);
-        } if (ShiroUtils.getLoginName().equals("changchang")) {
-        pddLimitPrv.setUserName("畅畅");
-        startPage();
-        pddLimitPrv.setCreateBy(ShiroUtils.getLoginName());
-        List<PddLimitPrv> list = pddLimitPrvService.selectPddLimitPrvList(pddLimitPrv);
-        return getDataTable(list);
-    }
-    else {
-        return getDataTable(null);
-    }
 
     }
+
+
 
     /**
      * 导出黑名单地区及年龄筛选列表
