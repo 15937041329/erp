@@ -76,6 +76,12 @@ public class PddController extends BaseController {
             List<Pdd> list = pddService.selectPddList(pdd);
             return getDataTable(list);
         }
+        if (ShiroUtils.getLoginName().equals("admin")) {
+            startPage();
+            pdd.setCreateBy(ShiroUtils.getLoginName());
+            List<Pdd> list = pddService.selectPddList(pdd);
+            return getDataTable(list);
+        }
         if (ShiroUtils.getLoginName().equals("xuyiming")) {
             pdd.setVdef5("徐义明");
             startPage();

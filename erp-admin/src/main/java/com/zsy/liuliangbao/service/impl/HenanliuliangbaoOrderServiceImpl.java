@@ -9,6 +9,8 @@ import com.zsy.liuliangbao.domain.HenanliuliangbaoOrder;
 import com.zsy.liuliangbao.service.IHenanliuliangbaoOrderService;
 import com.zsy.common.core.text.Convert;
 
+import javax.annotation.Resource;
+
 /**
  * 头条抖音流量包Service业务层处理
  * 
