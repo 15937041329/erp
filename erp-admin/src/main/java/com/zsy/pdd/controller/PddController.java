@@ -95,7 +95,8 @@ public class PddController extends BaseController {
             pdd.setCreateBy(ShiroUtils.getLoginName());
             List<Pdd> list = pddService.selectPddList(pdd);
             return getDataTable(list);
-        }  if (ShiroUtils.getLoginName().equals("zhuchenglong")) {
+        }
+        if (ShiroUtils.getLoginName().equals("zhuchenglong")) {
             pdd.setVdef5("朱成龙");
             startPage();
             pdd.setCreateBy(ShiroUtils.getLoginName());
@@ -115,14 +116,14 @@ public class PddController extends BaseController {
             pdd.setCreateBy(ShiroUtils.getLoginName());
             List<Pdd> list = pddService.selectPddList(pdd);
             return getDataTable(list);
-        } if (ShiroUtils.getLoginName().equals("changchang")) {
+        }
+        if (ShiroUtils.getLoginName().equals("changchang")) {
             pdd.setVdef5("畅畅");
             startPage();
             pdd.setCreateBy(ShiroUtils.getLoginName());
             List<Pdd> list = pddService.selectPddList(pdd);
             return getDataTable(list);
-        }
-        else {
+        } else {
             return getDataTable(null);
         }
     }
@@ -214,6 +215,7 @@ public class PddController extends BaseController {
             IdcardUtil.getAgeByIdCard(pdd.getIp());
         }
         for (Pdd pdd : pddList) {
+
             PddLimitPrv pddLimitPrvQuery = new PddLimitPrv();
             pddLimitPrvQuery.setSkuName(pdd.getVdef1());
             List<PddLimitPrv> pddLimitPrvList = pddLimitPrvMapper.selectPddLimitPrvList(pddLimitPrvQuery);
@@ -228,6 +230,7 @@ public class PddController extends BaseController {
                     limitAgeFlag = true;
                     break;
                 }
+
                 if (!StrUtil.isEmpty(pddLimitPrv.getPrv()) &&
                         !StrUtil.isEmpty(pddLimitPrv.getCity()) &&
                         !StrUtil.isEmpty(pddLimitPrv.getCounty())) {
@@ -239,25 +242,26 @@ public class PddController extends BaseController {
                     }
                 }
                 if (!StrUtil.isEmpty(pddLimitPrv.getPrv()) &&
-                        !StrUtil.isEmpty(pddLimitPrv.getCity())) {
+                        !StrUtil.isEmpty(pddLimitPrv.getCity()) &&
+                        StrUtil.isEmpty(pddLimitPrv.getCounty())) {
                     if (pdd.getProvince().contains(pddLimitPrv.getPrv()) &&
                             pdd.getCity().contains(pddLimitPrv.getCity())) {
                         limitPrvFlag = true;
                         break;
                     }
                 }
-                if (!StrUtil.isEmpty(pddLimitPrv.getPrv())) {
+                if (!StrUtil.isEmpty(pddLimitPrv.getPrv()) &&
+                        StrUtil.isEmpty(pddLimitPrv.getCity()) &&
+                        StrUtil.isEmpty(pddLimitPrv.getCounty())) {
                     if (pdd.getProvince().contains(pddLimitPrv.getPrv())) {
                         limitPrvFlag = true;
                         break;
                     }
                 }
             }
-
             if (!limitPrvFlag && !limitAgeFlag) {
                 continue;
             }
-
             if (limitPrvFlag) {
                 pdd.setVdef3("不发货地区");
             }
@@ -266,12 +270,10 @@ public class PddController extends BaseController {
             }
             String ip = pdd.getIp();
             pdd.setVdef4(Convert.toStr(IdcardUtil.getAgeByIdCard(pdd.getIp())));
-
             pddService.insertPdd(pdd);
         }
         return AjaxResult.success("SUCCESS");
     }
-
 
     /**
      * 根据身份证号码计算年龄
