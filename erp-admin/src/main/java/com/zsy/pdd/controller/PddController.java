@@ -82,48 +82,7 @@ public class PddController extends BaseController {
             List<Pdd> list = pddService.selectPddList(pdd);
             return getDataTable(list);
         }
-        if (ShiroUtils.getLoginName().equals("xuyiming")) {
-            pdd.setVdef5("徐义明");
-            startPage();
-            pdd.setCreateBy(ShiroUtils.getLoginName());
-            List<Pdd> list = pddService.selectPddList(pdd);
-            return getDataTable(list);
-        }
-        if (ShiroUtils.getLoginName().equals("zhangyu")) {
-            pdd.setVdef5("张雨");
-            startPage();
-            pdd.setCreateBy(ShiroUtils.getLoginName());
-            List<Pdd> list = pddService.selectPddList(pdd);
-            return getDataTable(list);
-        }
-        if (ShiroUtils.getLoginName().equals("zhuchenglong")) {
-            pdd.setVdef5("朱成龙");
-            startPage();
-            pdd.setCreateBy(ShiroUtils.getLoginName());
-            List<Pdd> list = pddService.selectPddList(pdd);
-            return getDataTable(list);
-        }
-        if (ShiroUtils.getLoginName().equals("maosujuan")) {
-            pdd.setVdef5("毛素娟");
-            startPage();
-            pdd.setCreateBy(ShiroUtils.getLoginName());
-            List<Pdd> list = pddService.selectPddList(pdd);
-            return getDataTable(list);
-        }
-        if (ShiroUtils.getLoginName().equals("maomengjuan")) {
-            pdd.setVdef5("毛梦娟");
-            startPage();
-            pdd.setCreateBy(ShiroUtils.getLoginName());
-            List<Pdd> list = pddService.selectPddList(pdd);
-            return getDataTable(list);
-        }
-        if (ShiroUtils.getLoginName().equals("changchang")) {
-            pdd.setVdef5("畅畅");
-            startPage();
-            pdd.setCreateBy(ShiroUtils.getLoginName());
-            List<Pdd> list = pddService.selectPddList(pdd);
-            return getDataTable(list);
-        } else {
+       else {
             return getDataTable(null);
         }
     }
