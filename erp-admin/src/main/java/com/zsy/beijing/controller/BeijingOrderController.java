@@ -41,7 +41,11 @@ public class BeijingOrderController extends BaseController
     @RequiresPermissions("beijing:order:view")
     @GetMapping()
     public String order()
+
     {
+
+
+
         return prefix + "/order";
     }
 
