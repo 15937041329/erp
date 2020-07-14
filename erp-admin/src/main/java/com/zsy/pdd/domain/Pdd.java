@@ -21,11 +21,11 @@ public class Pdd extends BaseEntity
     private Long id;
 
     /** 商品 */
-    @Excel(name = "商品")
+ //   @Excel(name = "商品")
     private String commodityName;
 
     /** 订单编号 */
-    @Excel(name = "订单号")
+    @Excel(name = "订单编号")
     private String orderId;
 
     /** 订单状态 */
@@ -33,19 +33,19 @@ public class Pdd extends BaseEntity
     private String orderStates;
 
     /** 商家实收金额(元) */
-    @Excel(name = "商家实收金额(元)")
+  //  @Excel(name = "商家实收金额(元)")
     private String payMoney;
 
     /** 拼单成功时间 */
-    @Excel(name = "拼单成功时间", width = 30, dateFormat = "yyyy-MM-dd")
+  //  @Excel(name = "拼单成功时间", width = 30, dateFormat = "yyyy-MM-dd")
     private Date successTime;
 
     /** 商品规格 */
-    @Excel(name = "商品规格")
+ //   @Excel(name = "商品规格")
     private String commoditySpec;
 
     /** 商家备注 */
-    @Excel(name = "商家备注")
+  //  @Excel(name = "商家备注")
     private String businessNotes;
 
     /** 收货人 */
@@ -69,7 +69,7 @@ public class Pdd extends BaseEntity
     private String county;
 
     /** 详细地址 */
-    @Excel(name = "详细地址")
+  //  @Excel(name = "详细地址")
     private String address;
 
     /** 身份证姓名 */
@@ -81,7 +81,7 @@ public class Pdd extends BaseEntity
     private String ip;
 
     /** 是否直播间订单 */
-    @Excel(name = "是否直播间订单")
+  //  @Excel(name = "是否直播间订单")
     private String roomId;
 
     /** vdef1 */
