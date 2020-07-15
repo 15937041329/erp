@@ -1,6 +1,16 @@
 package com.zsy.pddstorage.controller;
 
 import java.util.List;
+
+import cn.hutool.core.convert.Convert;
+import cn.hutool.core.util.IdcardUtil;
+import cn.hutool.core.util.StrUtil;
+import com.zsy.framework.util.ShiroUtils;
+import com.zsy.pdd.domain.Pdd;
+import com.zsy.pddlimitprv.domain.PddLimitPrv;
+import com.zsy.pddlimitprv.mapper.PddLimitPrvMapper;
+import com.zsy.pddstorage.mapper.PddStorageMapper;
+import io.swagger.annotations.ApiOperation;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -18,6 +28,9 @@ import com.zsy.common.core.controller.BaseController;
 import com.zsy.common.core.domain.AjaxResult;
 import com.zsy.common.utils.poi.ExcelUtil;
 import com.zsy.common.core.page.TableDataInfo;
+import org.springframework.web.multipart.MultipartFile;
+
+import javax.annotation.Resource;
 
 /**
  * 数据存储Controller
@@ -34,6 +47,8 @@ public class PddStorageController extends BaseController
     @Autowired
     private IPddStorageService pddStorageService;
 
+    @Resource
+    private PddStorageMapper pddStorageMapper;
     @RequiresPermissions("pddstorage:storage:view")
     @GetMapping()
     public String storage()
@@ -123,4 +138,42 @@ public class PddStorageController extends BaseController
     {
         return toAjax(pddStorageService.deletePddStorageByIds(ids));
     }
+
+
+    /**
+     * 导入拼多多表格导入列表
+     */
+    @PostMapping("/importData")
+    @ResponseBody
+    public AjaxResult importData(MultipartFile file, boolean updateSupport) throws Exception {
+        ExcelUtil<PddStorage> util = new ExcelUtil<PddStorage>(PddStorage.class);
+        List<PddStorage> pddList = util.importExcel(file.getInputStream());
+        PddStorage pdd=new PddStorage();
+        for (PddStorage pddStorage : pddList) {
+            pddStorage.setVdef4(Convert.toStr(IdcardUtil.getAgeByIdCard(pddStorage.getIp())));
+            pddStorageService.insertPddStorage(pddStorage);
+        }
+        return AjaxResult.success("SUCCESS");
+
+    }
+
+    /**
+     * 根据身份证号码计算年龄
+     *
+     * @param psptNo
+     * @return
+     */
+    @ApiOperation("计算年龄")
+    @PostMapping("/getAgeByPsptNo")
+    public int getAgeByPsptNo(String psptNo) {
+        try {
+            return IdcardUtil.getAgeByIdCard(psptNo);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return 0;
+        }
+    }
+
+
+
 }

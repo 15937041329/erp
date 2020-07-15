@@ -29,7 +29,7 @@ public class PddStorage extends BaseEntity
     private String orderId;
 
     /** 订单状态 */
-    @Excel(name = "订单状态")
+//  @Excel(name = "订单状态")
     private String orderStates;
 
     /** 商家实收金额(元) */
@@ -37,15 +37,15 @@ public class PddStorage extends BaseEntity
     private String payMoney;
 
     /** 拼单成功时间 */
-    @Excel(name = "拼单成功时间", width = 30, dateFormat = "yyyy-MM-dd")
+  //  @Excel(name = "拼单成功时间", width = 30, dateFormat = "yyyy-MM-dd")
     private Date successTime;
 
     /** 商品规格 */
-    @Excel(name = "商品规格")
+   // @Excel(name = "商品规格")
     private String commoditySpec;
 
     /** 商家备注 */
-    @Excel(name = "商家备注")
+ //   @Excel(name = "商家备注")
     private String businessNotes;
 
     /** 收货人 */
@@ -69,7 +69,7 @@ public class PddStorage extends BaseEntity
     private String county;
 
     /** 详细地址 */
-    @Excel(name = "详细地址")
+    //@Excel(name = "详细地址")
     private String address;
 
     /** 身份证姓名 */
@@ -81,27 +81,27 @@ public class PddStorage extends BaseEntity
     private String ip;
 
     /** 是否直播间订单 */
-    @Excel(name = "是否直播间订单")
+ //   @Excel(name = "是否直播间订单")
     private String roomId;
 
     /** vdef1 */
-    @Excel(name = "vdef1")
+   // @Excel(name = "vdef1")
     private String vdef1;
 
     /** vdef2 */
-    @Excel(name = "vdef2")
+  //  @Excel(name = "vdef2")
     private String vdef2;
 
     /** vdef3 */
-    @Excel(name = "vdef3")
+   // @Excel(name = "vdef3")
     private String vdef3;
 
     /** vdef4 */
-    @Excel(name = "vdef4")
+   // @Excel(name = "vdef4")
     private String vdef4;
 
     /** vdef5 */
-    @Excel(name = "vdef5")
+  //  @Excel(name = "vdef5")
     private String vdef5;
 
     public void setId(Long id) 
