@@ -2,6 +2,12 @@
 <html lang="zh" xmlns:th="http://www.thymeleaf.org" xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
 <head>
     <th:block th:include="include :: header('拼多多表格导入列表')" />
+    <title>erperp</title>>
+    <style>
+        .color{
+            color:red
+        }
+    </style>>
 </head>
 <body class="gray-bg">
      <div class="container-div">
@@ -173,6 +179,7 @@
                 importUrl: prefix + "/importData",
                 importTemplateUrl:prefix + "/importTemplate",
                 modalName: "拼多多表格导入",
+<!--                rowStyle: rowStyle,-->
                 columns: [{
                     checkbox: true
                 },
@@ -256,7 +263,8 @@
                 },
                 {
                     field: 'vdef3', 
-                    title: '黑名单地区'
+                    title: '黑名单地区',
+                    class:'color'
                 },
                 {
                     field: 'vdef4', 
@@ -278,7 +286,16 @@
                 }]
             };
             $.table.init(options);
+
+
         });
+<!--        function rowStyle(row, index) {-->
+<!--                console.log(row,index)-->
+<!--                if(row.vdef3){-->
+<!--                var style = { css: { 'color': '#ed5565' } };-->
+<!--                return style;-->
+<!--                }   -->
+<!--            }-->
     </script>
 </body>
 </html>
