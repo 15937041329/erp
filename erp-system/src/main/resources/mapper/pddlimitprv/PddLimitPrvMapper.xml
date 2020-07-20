@@ -27,11 +27,16 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         <include refid="selectPddLimitPrvVo"/>
         <where>  
             <if test="skuName != null  and skuName != ''"> and sku_name like concat('%', #{skuName}, '%')</if>
-            <if test="minAge != null "> and min_age = #{minAge}</if>
+           <!-- <if test="minAge != null "> and min_age = #{minAge}</if>-->
+             <if test="minAge != null  and minAge != ''"> and min_age like concat('%', #{minAge}, '%')</if>
             <if test="maxAge != null "> and max_age = #{maxAge}</if>
-            <if test="prv != null  and prv != ''"> and prv = #{prv}</if>
-            <if test="city != null  and city != ''"> and city = #{city}</if>
-            <if test="county != null  and county != ''"> and county = #{county}</if>
+           <!-- <if test="prv != null  and prv != ''"> and prv = #{prv}</if>-->
+               <if test="prv != null  and prv != ''"> and prv like concat('%', #{prv}, '%')</if>
+
+        <!--    <if test="city != null  and city != ''"> and city = #{city}</if>-->
+            <if test="city != null  and city != ''"> and city like concat('%', #{city}, '%')</if>
+          <!--  <if test="county != null  and county != ''"> and county = #{county}</if>-->
+             <if test="county != null  and county != ''"> and county like concat('%', #{county}, '%')</if>
             <if test="createTime != null "> and create_time = #{createTime}</if>
             <if test="updateTime != null "> and update_time = #{updateTime}</if>
             <if test="userName != null  and userName != ''"> and user_name like concat('%', #{userName}, '%')</if>
