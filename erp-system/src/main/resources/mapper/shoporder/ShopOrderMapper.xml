@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zsy.shoporder.mapper.ShopOrderMapper">
+    
+    <resultMap type="ShopOrder" id="ShopOrderResult">
+        <result property="id"    column="id"    />
+        <result property="orderId"    column="order_id"    />
+        <result property="phone"    column="phone"    />
+        <result property="province"    column="province"    />
+        <result property="city"    column="city"    />
+        <result property="county"    column="county"    />
+        <result property="town"    column="town"    />
+        <result property="address"    column="address"    />
+        <result property="payamount"    column="payAmount"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="isrefund"    column="isrefund"    />
+        <result property="remarks"    column="remarks"    />
+        <result property="vdef1"    column="vdef1"    />
+        <result property="vdef2"    column="vdef2"    />
+        <result property="vdef3"    column="vdef3"    />
+        <result property="vdef4"    column="vdef4"    />
+        <result property="vdef5"    column="vdef5"    />
+        <result property="vdef6"    column="vdef6"    />
+    </resultMap>
+
+    <sql id="selectShopOrderVo">
+        select id, order_id, phone, province, city, county, town, address, payAmount, create_time, isrefund, remarks, vdef1, vdef2, vdef3, vdef4, vdef5, vdef6 from shop_order
+    </sql>
+
+    <select id="selectShopOrderList" parameterType="ShopOrder" resultMap="ShopOrderResult">
+        <include refid="selectShopOrderVo"/>
+        <where>  
+            <if test="orderId != null  and orderId != ''"> and order_id = #{orderId}</if>
+            <if test="phone != null  and phone != ''"> and phone = #{phone}</if>
+            <if test="province != null  and province != ''"> and province = #{province}</if>
+            <if test="city != null  and city != ''"> and city = #{city}</if>
+            <if test="county != null  and county != ''"> and county = #{county}</if>
+            <if test="town != null  and town != ''"> and town = #{town}</if>
+            <if test="address != null  and address != ''"> and address = #{address}</if>
+            <if test="payamount != null  and payamount != ''"> and payAmount = #{payamount}</if>
+            <if test="createTime != null "> and create_time = #{createTime}</if>
+            <if test="isrefund != null "> and isrefund = #{isrefund}</if>
+            <if test="remarks != null  and remarks != ''"> and remarks = #{remarks}</if>
+            <if test="vdef1 != null  and vdef1 != ''"> and vdef1 = #{vdef1}</if>
+            <if test="vdef2 != null  and vdef2 != ''"> and vdef2 = #{vdef2}</if>
+            <if test="vdef3 != null  and vdef3 != ''"> and vdef3 = #{vdef3}</if>
+            <if test="vdef4 != null  and vdef4 != ''"> and vdef4 = #{vdef4}</if>
+            <if test="vdef5 != null  and vdef5 != ''"> and vdef5 = #{vdef5}</if>
+            <if test="vdef6 != null  and vdef6 != ''"> and vdef6 = #{vdef6}</if>
+        </where>
+    </select>
+    
+    <select id="selectShopOrderById" parameterType="Long" resultMap="ShopOrderResult">
+        <include refid="selectShopOrderVo"/>
+        where id = #{id}
+    </select>
+        
+    <insert id="insertShopOrder" parameterType="ShopOrder" useGeneratedKeys="true" keyProperty="id">
+        insert into shop_order
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="orderId != null  and orderId != ''">order_id,</if>
+            <if test="phone != null  and phone != ''">phone,</if>
+            <if test="province != null  and province != ''">province,</if>
+            <if test="city != null  and city != ''">city,</if>
+            <if test="county != null  and county != ''">county,</if>
+            <if test="town != null  and town != ''">town,</if>
+            <if test="address != null  and address != ''">address,</if>
+            <if test="payamount != null  and payamount != ''">payAmount,</if>
+            <if test="createTime != null ">create_time,</if>
+            <if test="isrefund != null ">isrefund,</if>
+            <if test="remarks != null  and remarks != ''">remarks,</if>
+            <if test="vdef1 != null  and vdef1 != ''">vdef1,</if>
+            <if test="vdef2 != null  and vdef2 != ''">vdef2,</if>
+            <if test="vdef3 != null  and vdef3 != ''">vdef3,</if>
+            <if test="vdef4 != null  and vdef4 != ''">vdef4,</if>
+            <if test="vdef5 != null  and vdef5 != ''">vdef5,</if>
+            <if test="vdef6 != null  and vdef6 != ''">vdef6,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="orderId != null  and orderId != ''">#{orderId},</if>
+            <if test="phone != null  and phone != ''">#{phone},</if>
+            <if test="province != null  and province != ''">#{province},</if>
+            <if test="city != null  and city != ''">#{city},</if>
+            <if test="county != null  and county != ''">#{county},</if>
+            <if test="town != null  and town != ''">#{town},</if>
+            <if test="address != null  and address != ''">#{address},</if>
+            <if test="payamount != null  and payamount != ''">#{payamount},</if>
+            <if test="createTime != null ">#{createTime},</if>
+            <if test="isrefund != null ">#{isrefund},</if>
+            <if test="remarks != null  and remarks != ''">#{remarks},</if>
+            <if test="vdef1 != null  and vdef1 != ''">#{vdef1},</if>
+            <if test="vdef2 != null  and vdef2 != ''">#{vdef2},</if>
+            <if test="vdef3 != null  and vdef3 != ''">#{vdef3},</if>
+            <if test="vdef4 != null  and vdef4 != ''">#{vdef4},</if>
+            <if test="vdef5 != null  and vdef5 != ''">#{vdef5},</if>
+            <if test="vdef6 != null  and vdef6 != ''">#{vdef6},</if>
+         </trim>
+    </insert>
+
+    <update id="updateShopOrder" parameterType="ShopOrder">
+        update shop_order
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="orderId != null  and orderId != ''">order_id = #{orderId},</if>
+            <if test="phone != null  and phone != ''">phone = #{phone},</if>
+            <if test="province != null  and province != ''">province = #{province},</if>
+            <if test="city != null  and city != ''">city = #{city},</if>
+            <if test="county != null  and county != ''">county = #{county},</if>
+            <if test="town != null  and town != ''">town = #{town},</if>
+            <if test="address != null  and address != ''">address = #{address},</if>
+            <if test="payamount != null  and payamount != ''">payAmount = #{payamount},</if>
+            <if test="createTime != null ">create_time = #{createTime},</if>
+            <if test="isrefund != null ">isrefund = #{isrefund},</if>
+            <if test="remarks != null  and remarks != ''">remarks = #{remarks},</if>
+            <if test="vdef1 != null  and vdef1 != ''">vdef1 = #{vdef1},</if>
+            <if test="vdef2 != null  and vdef2 != ''">vdef2 = #{vdef2},</if>
+            <if test="vdef3 != null  and vdef3 != ''">vdef3 = #{vdef3},</if>
+            <if test="vdef4 != null  and vdef4 != ''">vdef4 = #{vdef4},</if>
+            <if test="vdef5 != null  and vdef5 != ''">vdef5 = #{vdef5},</if>
+            <if test="vdef6 != null  and vdef6 != ''">vdef6 = #{vdef6},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteShopOrderById" parameterType="Long">
+        delete from shop_order where id = #{id}
+    </delete>
+
+    <delete id="deleteShopOrderByIds" parameterType="String">
+        delete from shop_order where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+    
+</mapper>

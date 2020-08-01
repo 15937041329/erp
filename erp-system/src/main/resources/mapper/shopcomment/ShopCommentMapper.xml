@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zsy.shopcomment.mapper.ShopCommentMapper">
+    
+    <resultMap type="ShopComment" id="ShopCommentResult">
+        <result property="id"    column="id"    />
+        <result property="shopId"    column="shop_id"    />
+        <result property="username"    column="username"    />
+        <result property="comment"    column="comment"    />
+        <result property="commentnum"    column="commentnum"    />
+        <result property="pictureurl1"    column="pictureUrl1"    />
+        <result property="pictureurl2"    column="pictureUrl2"    />
+        <result property="vdef1"    column="vdef1"    />
+        <result property="vdef2"    column="vdef2"    />
+        <result property="vdef3"    column="vdef3"    />
+    </resultMap>
+
+    <sql id="selectShopCommentVo">
+        select id, shop_id, username, comment, commentnum, pictureUrl1, pictureUrl2, vdef1, vdef2, vdef3 from shop_comment
+    </sql>
+
+    <select id="selectShopCommentList" parameterType="ShopComment" resultMap="ShopCommentResult">
+        <include refid="selectShopCommentVo"/>
+        <where>  
+            <if test="shopId != null  and shopId != ''"> and shop_id = #{shopId}</if>
+            <if test="username != null  and username != ''"> and username like concat('%', #{username}, '%')</if>
+            <if test="comment != null  and comment != ''"> and comment = #{comment}</if>
+            <if test="commentnum != null "> and commentnum = #{commentnum}</if>
+            <if test="pictureurl1 != null  and pictureurl1 != ''"> and pictureUrl1 = #{pictureurl1}</if>
+            <if test="pictureurl2 != null  and pictureurl2 != ''"> and pictureUrl2 = #{pictureurl2}</if>
+            <if test="vdef1 != null  and vdef1 != ''"> and vdef1 = #{vdef1}</if>
+            <if test="vdef2 != null  and vdef2 != ''"> and vdef2 = #{vdef2}</if>
+            <if test="vdef3 != null  and vdef3 != ''"> and vdef3 = #{vdef3}</if>
+        </where>
+    </select>
+    
+    <select id="selectShopCommentById" parameterType="Long" resultMap="ShopCommentResult">
+        <include refid="selectShopCommentVo"/>
+        where id = #{id}
+    </select>
+        
+    <insert id="insertShopComment" parameterType="ShopComment" useGeneratedKeys="true" keyProperty="id">
+        insert into shop_comment
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="shopId != null  and shopId != ''">shop_id,</if>
+            <if test="username != null  and username != ''">username,</if>
+            <if test="comment != null  and comment != ''">comment,</if>
+            <if test="commentnum != null ">commentnum,</if>
+            <if test="pictureurl1 != null  and pictureurl1 != ''">pictureUrl1,</if>
+            <if test="pictureurl2 != null  and pictureurl2 != ''">pictureUrl2,</if>
+            <if test="vdef1 != null  and vdef1 != ''">vdef1,</if>
+            <if test="vdef2 != null  and vdef2 != ''">vdef2,</if>
+            <if test="vdef3 != null  and vdef3 != ''">vdef3,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="shopId != null  and shopId != ''">#{shopId},</if>
+            <if test="username != null  and username != ''">#{username},</if>
+            <if test="comment != null  and comment != ''">#{comment},</if>
+            <if test="commentnum != null ">#{commentnum},</if>
+            <if test="pictureurl1 != null  and pictureurl1 != ''">#{pictureurl1},</if>
+            <if test="pictureurl2 != null  and pictureurl2 != ''">#{pictureurl2},</if>
+            <if test="vdef1 != null  and vdef1 != ''">#{vdef1},</if>
+            <if test="vdef2 != null  and vdef2 != ''">#{vdef2},</if>
+            <if test="vdef3 != null  and vdef3 != ''">#{vdef3},</if>
+         </trim>
+    </insert>
+
+    <update id="updateShopComment" parameterType="ShopComment">
+        update shop_comment
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="shopId != null  and shopId != ''">shop_id = #{shopId},</if>
+            <if test="username != null  and username != ''">username = #{username},</if>
+            <if test="comment != null  and comment != ''">comment = #{comment},</if>
+            <if test="commentnum != null ">commentnum = #{commentnum},</if>
+            <if test="pictureurl1 != null  and pictureurl1 != ''">pictureUrl1 = #{pictureurl1},</if>
+            <if test="pictureurl2 != null  and pictureurl2 != ''">pictureUrl2 = #{pictureurl2},</if>
+            <if test="vdef1 != null  and vdef1 != ''">vdef1 = #{vdef1},</if>
+            <if test="vdef2 != null  and vdef2 != ''">vdef2 = #{vdef2},</if>
+            <if test="vdef3 != null  and vdef3 != ''">vdef3 = #{vdef3},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteShopCommentById" parameterType="Long">
+        delete from shop_comment where id = #{id}
+    </delete>
+
+    <delete id="deleteShopCommentByIds" parameterType="String">
+        delete from shop_comment where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+    
+</mapper>
